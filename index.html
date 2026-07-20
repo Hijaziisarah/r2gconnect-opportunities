@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R2GConnect — July 2026 Opportunities</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f5f4fb;color:#1a1a2e;min-height:100vh}
+
+.hero{background:linear-gradient(135deg,#5a5fcc 0%,#898dfa 100%);padding:40px 24px 32px;text-align:center;color:#fff}
+.hero h1{font-size:26px;font-weight:700;margin-bottom:8px;letter-spacing:-0.3px}
+.hero p{font-size:15px;opacity:.88;margin-bottom:20px}
+.hero-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.18);border-radius:10px;padding:10px 16px;text-align:center;min-width:68px}
+.stat-n{font-size:21px;font-weight:700;display:block}
+.stat-l{font-size:10px;opacity:.85;text-transform:uppercase;letter-spacing:.5px}
+
+.fw{background:#fff;border-bottom:1px solid #e8e8f0;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.fh{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;cursor:pointer;user-select:none}
+.fh-left{display:flex;align-items:center;gap:8px}
+.ftitle{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.6px}
+.chevron{font-size:13px;color:#aaa;transition:transform .22s;display:none}
+
+.fb{padding:10px 20px 14px;display:flex;flex-direction:column;gap:8px}
+.frow{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.flabel{font-size:10px;color:#999;font-weight:700;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;flex-shrink:0}
+.fdiv{width:1px;height:22px;background:#e8e8f0;flex-shrink:0}
+
+.fbtn{border:1.5px solid #d0d0e0;background:#fff;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;color:#444;transition:all .14s;white-space:nowrap;font-family:inherit;line-height:1.3}
+.fbtn:hover{border-color:#898dfa;color:#5a5fcc}
+.fbtn.active{background:#898dfa;border-color:#898dfa;color:#fff;font-weight:600}
+.fbtn.ub{border-color:#e85d4a;color:#c0392b}
+.fbtn.ub.active{background:#e85d4a;border-color:#e85d4a;color:#fff}
+
+.fsel{border:1.5px solid #d0d0e0;background:#fff;border-radius:20px;padding:5px 28px 5px 12px;font-size:12px;cursor:pointer;color:#555;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23aaa'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;font-family:inherit;outline:none;transition:border-color .14s;max-width:230px}
+.fsel:focus{border-color:#898dfa}
+.fsel.av{border-color:#5a5fcc;color:#5a5fcc}
+
+.sw{position:relative;display:flex;align-items:center}
+.si{position:absolute;left:10px;color:#ccc;pointer-events:none}
+.sinp{border:1.5px solid #d0d0e0;background:#fff;border-radius:20px;padding:5px 12px 5px 30px;font-size:12px;color:#444;font-family:inherit;outline:none;width:190px;transition:border-color .14s}
+.sinp:focus{border-color:#898dfa}
+.sinp::placeholder{color:#ccc}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;padding:20px 24px;max-width:1200px;margin:0 auto}
+.card{background:#fff;border-radius:12px;border:1px solid #e8e8f4;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .14s;cursor:pointer}
+.card:hover{box-shadow:0 6px 24px rgba(89,93,200,.14);transform:translateY(-2px)}
+.card-top{padding:15px 15px 10px}
+.badges{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px}
+.bp{background:#e8e9fd;color:#4a4fb0}
+.ba{background:#fff3e0;color:#b45309}
+.bd{background:#e2f4ec;color:#1a7a48}
+.bg{background:#e8f4ff;color:#1a5f9a}
+.bpa{background:#fdf0ff;color:#7a1a9a}
+.bu{background:#fde8e6;color:#c0392b}
+.be{background:#fde2ef;color:#a31760}
+.card-title{font-size:13.5px;font-weight:600;color:#1a1a2e;line-height:1.4;margin-bottom:5px}
+.card-partner{font-size:11.5px;color:#999;display:flex;align-items:center;gap:4px}
+.tags{padding:6px 15px 10px;display:flex;gap:4px;flex-wrap:wrap}
+.ctag{font-size:10px;background:#f0f0fa;color:#5a5fcc;border-radius:6px;padding:2px 7px}
+.stag{font-size:10px;background:#f5f9ff;color:#1a5f9a;border-radius:6px;padding:2px 7px}
+.card-meta{padding:10px 15px;border-top:1px solid #f0f0f8;display:flex;align-items:center;justify-content:space-between;background:#fafafa;margin-top:auto;gap:8px}
+.dl{font-size:11px;color:#888;display:flex;align-items:center;gap:4px;flex-shrink:1;min-width:0}
+.dl.soon{color:#c0392b;font-weight:600}
+.cta{background:#898dfa;color:#fff;border:none;border-radius:8px;padding:7px 13px;font-size:11.5px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:background .14s;white-space:nowrap;flex-shrink:0}
+.cta:hover{background:#6c72e8}
+.empty{text-align:center;padding:60px 24px;color:#bbb;grid-column:1/-1}
+.rbar{padding:10px 24px 0;max-width:1200px;margin:0 auto;font-size:12px;color:#aaa}
+
+@media(max-width:640px){
+  .hero h1{font-size:19px}
+  .hero-stats{gap:8px}
+  .stat{padding:8px 10px;min-width:60px}
+  .stat-n{font-size:17px}
+  .grid{padding:12px;gap:12px}
+  .fh{padding:11px 16px}
+  .chevron{display:inline-block}
+  .fb{overflow:hidden;max-height:0;padding:0 16px;transition:max-height .3s ease,padding .2s}
+  .fb.open{max-height:700px;padding:10px 16px 14px}
+  .sinp{width:145px}
+  .fsel{max-width:160px}
+}
+@media(min-width:641px){
+  .fb{max-height:none!important;padding:10px 20px 14px!important}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>R2GConnect &mdash; July 2026 Partnership &amp; Growth Opportunities</h1>
+  <p>Find the right opportunity and apply directly on R2GConnect</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n" id="total-count">103</span><span class="stat-l">Showing</span></div>
+    <div class="stat"><span class="stat-n">17</span><span class="stat-l">Pitch Events</span></div>
+    <div class="stat"><span class="stat-n">2</span><span class="stat-l">Accel. Tracks</span></div>
+    <div class="stat"><span class="stat-n">38</span><span class="stat-l">Deals</span></div>
+    <div class="stat"><span class="stat-n">36</span><span class="stat-l">Growth Projects</span></div>
+    <div class="stat"><span class="stat-n">5</span><span class="stat-l">Expert Cohorts</span></div>
+    <div class="stat"><span class="stat-n">5</span><span class="stat-l">Partnerships</span></div>
+    <div class="stat"><span class="stat-n" style="color:#ffcdd2" id="urgent-count">⚡ 0</span><span class="stat-l">Closing Soon</span></div>
+  </div>
+</div>
+</div>
+
+<div class="fw">
+  <div class="fh" id="ftoggle" role="button" aria-expanded="false">
+    <div class="fh-left">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      <span class="ftitle">Filters &amp; Sort</span>
+    </div>
+    <span class="chevron" id="chev">▾</span>
+  </div>
+  <div class="fb" id="fb">
+    <div class="frow">
+      <span class="flabel">Search</span>
+      <div class="sw">
+        <svg class="si" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="sinp" type="text" id="sinp" placeholder="Search…">
+      </div>
+      <div class="fdiv"></div>
+      <span class="flabel">Type</span>
+      <button class="fbtn active" data-f="all">All</button>
+      <button class="fbtn ub" data-f="urgent">⚡ Closing Soon</button>
+      <button class="fbtn" data-f="t:Pitch Event">Pitch Events</button>
+      <button class="fbtn" data-f="t:Acceleration Track">Acceleration</button>
+      <button class="fbtn" data-f="t:Deal">Deals</button>
+      <button class="fbtn" data-f="t:Growth Project">Growth Projects</button>
+      <button class="fbtn" data-f="t:Expert Cohort">Expert Cohorts</button>
+      <button class="fbtn" data-f="t:Partnership Opportunity">Partnerships</button>
+      <div class="fdiv"></div>
+      <span class="flabel">Sort</span>
+      <select class="fsel" id="sort">
+        <option value="dl-asc">Deadline ↑ Soonest</option>
+        <option value="dl-desc">Deadline ↓ Latest</option>
+        <option value="az">Title A → Z</option>
+        <option value="za">Title Z → A</option>
+        <option value="type">By Type</option>
+      </select>
+    </div>
+    <div class="frow">
+      <span class="flabel">Partner</span>
+      <select class="fsel" id="psel">
+        <option value="">All Partners</option>
+      <option value="Associação CoLAB TRIALS">Associação CoLAB TRIALS</option>
+      <option value="BAYOOMED GmbH">BAYOOMED GmbH</option>
+      <option value="BMS Digital Safety">BMS Digital Safety</option>
+      <option value="Beandgo">Beandgo</option>
+      <option value="CEED | Charite">CEED | Charite</option>
+      <option value="CEED | Charité">CEED | Charité</option>
+      <option value="DataArt">DataArt</option>
+      <option value="Frontiers Health">Frontiers Health</option>
+      <option value="Halo Lab">Halo Lab</option>
+      <option value="Innokas">Innokas</option>
+      <option value="Microsoft for Startups">Microsoft for Startups</option>
+      <option value="NEXT Munich">NEXT Munich</option>
+      <option value="NSB Project">NSB Project</option>
+      <option value="New Enterprise Ventures">New Enterprise Ventures</option>
+      <option value="Nuvantta Strategic Consultants FZE">Nuvantta Strategic Consultants FZE</option>
+      <option value="Plexteq">Plexteq</option>
+      <option value="Punktum">Punktum</option>
+      <option value="R2GConnect">R2GConnect</option>
+      <option value="R2GConnect Channels">R2GConnect Channels</option>
+      <option value="ROOK">ROOK</option>
+      <option value="Research 2 Guidance">Research 2 Guidance</option>
+      <option value="Research2Guidance">Research2Guidance</option>
+      <option value="Thryve Health">Thryve Health</option>
+      <option value="TÜV Informationstechnik GmbH">TÜV Informationstechnik GmbH</option>
+      <option value="Untangling Labs">Untangling Labs</option>
+      <option value="Virtual Nomad">Virtual Nomad</option>
+      <option value="WorldUpstart">WorldUpstart</option>
+      </select>
+      <div class="fdiv"></div>
+      <span class="flabel">Category</span>
+      <select class="fsel" id="csel">
+        <option value="">All Categories</option>
+      <option value="AI agents for healthcare">AI agents for healthcare</option>
+      <option value="AI imaging tools">AI imaging tools</option>
+      <option value="AI productivity tools">AI productivity tools</option>
+      <option value="Augment/Virtual reality">Augment/Virtual reality</option>
+      <option value="Blockchain for medical records &amp; consent">Blockchain for medical records &amp; consent</option>
+      <option value="Business Services">Business Services</option>
+      <option value="Care coordination">Care coordination</option>
+      <option value="Claim and payment management">Claim and payment management</option>
+      <option value="Clinical Study/Research and Content Services">Clinical Study/Research and Content Services</option>
+      <option value="Clinical Trial and Research">Clinical Trial and Research</option>
+      <option value="Clinical trial and research">Clinical trial and research</option>
+      <option value="Consulting Services">Consulting Services</option>
+      <option value="Consulting services">Consulting services</option>
+      <option value="Data Analytics and AI">Data Analytics and AI</option>
+      <option value="Data Integration and Management">Data Integration and Management</option>
+      <option value="Data analytics and AI">Data analytics and AI</option>
+      <option value="Data integration and management">Data integration and management</option>
+      <option value="Development platform">Development platform</option>
+      <option value="Development platform / White label">Development platform / White label</option>
+      <option value="Diagnostics">Diagnostics</option>
+      <option value="Diagnostics &amp; detection">Diagnostics &amp; detection</option>
+      <option value="Digital biomarker">Digital biomarker</option>
+      <option value="Digital therapeutics">Digital therapeutics</option>
+      <option value="Digital therapeutics &amp; Biomarkers">Digital therapeutics &amp; Biomarkers</option>
+      <option value="Digital twins">Digital twins</option>
+      <option value="Disease management">Disease management</option>
+      <option value="Drug companion solution">Drug companion solution</option>
+      <option value="Drug discovery">Drug discovery</option>
+      <option value="EHR/MHR">EHR/MHR</option>
+      <option value="Education and information">Education and information</option>
+      <option value="Glucose monitoring">Glucose monitoring</option>
+      <option value="Healthcare interoperability / FHIR integration">Healthcare interoperability / FHIR integration</option>
+      <option value="Home testing">Home testing</option>
+      <option value="Hospital at home">Hospital at home</option>
+      <option value="Investor &amp; Fundraising and Grant Support">Investor &amp; Fundraising and Grant Support</option>
+      <option value="Longevity &amp; aging tech">Longevity &amp; aging tech</option>
+      <option value="Market Access Support">Market Access Support</option>
+      <option value="Marketplace">Marketplace</option>
+      <option value="Medical device / wearables">Medical device / wearables</option>
+      <option value="Medical device companion solution">Medical device companion solution</option>
+      <option value="Medication adherance">Medication adherance</option>
+      <option value="Patient assistant">Patient assistant</option>
+      <option value="Patient monitoring">Patient monitoring</option>
+      <option value="Personal genetics">Personal genetics</option>
+      <option value="Pharmacy solutions">Pharmacy solutions</option>
+      <option value="Pitch Deck Preparation &amp; Revision">Pitch Deck Preparation &amp; Revision</option>
+      <option value="Population health management">Population health management</option>
+      <option value="Practice management">Practice management</option>
+      <option value="Predictive Analysis">Predictive Analysis</option>
+      <option value="Real world evidence">Real world evidence</option>
+      <option value="Regulatory &amp; Legal Support">Regulatory &amp; Legal Support</option>
+      <option value="Remote monitoring">Remote monitoring</option>
+      <option value="Remote patient monitoring">Remote patient monitoring</option>
+      <option value="Self management">Self management</option>
+      <option value="Sleep tech">Sleep tech</option>
+      <option value="Symptoms tracking">Symptoms tracking</option>
+      <option value="Team Growth">Team Growth</option>
+      <option value="Technical Support and AI">Technical Support and AI</option>
+      <option value="Technical and Product Development Services">Technical and Product Development Services</option>
+      <option value="Tele-pharmacy">Tele-pharmacy</option>
+      <option value="Telehealth / Telemedicine">Telehealth / Telemedicine</option>
+      <option value="Telemedicine">Telemedicine</option>
+      <option value="Voice Tech">Voice Tech</option>
+      <option value="Workforce / shift management">Workforce / shift management</option>
+      </select>
+      <div class="fdiv"></div>
+      <span class="flabel">Subcategory</span>
+      <select class="fsel" id="ssel">
+        <option value="">All Subcategories</option>
+      <option value="AI Clinical Data Analysis &amp; Predictive Analytics">AI Clinical Data Analysis &amp; Predictive Analytics</option>
+      <option value="Acceleration &amp; Incubation">Acceleration &amp; Incubation</option>
+      <option value="Acceleration/Incubation">Acceleration/Incubation</option>
+      <option value="Access to AI Platforms &amp; Tools">Access to AI Platforms &amp; Tools</option>
+      <option value="Access to HCPs and Coaches &amp; Patients">Access to HCPs and Coaches &amp; Patients</option>
+      <option value="Access to Patient Data">Access to Patient Data</option>
+      <option value="Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways">Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways</option>
+      <option value="Assistance With Notified Body Submissions or Pre-Market Approvals">Assistance With Notified Body Submissions or Pre-Market Approvals</option>
+      <option value="Billing &amp; Claims Management">Billing &amp; Claims Management</option>
+      <option value="Biomarker/API services">Biomarker/API services</option>
+      <option value="Business Admin">Business Admin</option>
+      <option value="Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA">Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA</option>
+      <option value="Clinical Study Support">Clinical Study Support</option>
+      <option value="Clinical Usability Testing">Clinical Usability Testing</option>
+      <option value="Cloud Infrastructure &amp; Cybersecurity Setup">Cloud Infrastructure &amp; Cybersecurity Setup</option>
+      <option value="Co-development">Co-development</option>
+      <option value="Coaching">Coaching</option>
+      <option value="Commercial partnership">Commercial partnership</option>
+      <option value="Conference participation">Conference participation</option>
+      <option value="Consulting Services">Consulting Services</option>
+      <option value="Distribution Support">Distribution Support</option>
+      <option value="Embedded Software Development for Medical Devices">Embedded Software Development for Medical Devices</option>
+      <option value="Fractional Hires &amp; Interim Manager Search">Fractional Hires &amp; Interim Manager Search</option>
+      <option value="Fundraising Strategy">Fundraising Strategy</option>
+      <option value="GDPR/HIPAA Compliance Audits">GDPR/HIPAA Compliance Audits</option>
+      <option value="General Business and Consulting Services">General Business and Consulting Services</option>
+      <option value="General Legal &amp; Regulatory Advice">General Legal &amp; Regulatory Advice</option>
+      <option value="Go-To-Market Support">Go-To-Market Support</option>
+      <option value="Health IT Infrastructure Services">Health IT Infrastructure Services</option>
+      <option value="Integration With Electronic Health Records (EHR/EMR) &amp; APIs">Integration With Electronic Health Records (EHR/EMR) &amp; APIs</option>
+      <option value="Investor Due Diligence Support">Investor Due Diligence Support</option>
+      <option value="Investor Search &amp; Fundraising">Investor Search &amp; Fundraising</option>
+      <option value="Joined offer creation">Joined offer creation</option>
+      <option value="Localization &amp; Translation">Localization &amp; Translation</option>
+      <option value="Machine Learning Model Development &amp; Validation">Machine Learning Model Development &amp; Validation</option>
+      <option value="Market Access Support">Market Access Support</option>
+      <option value="Market Research &amp; Competitive Analysis">Market Research &amp; Competitive Analysis</option>
+      <option value="Marketing and Branding &amp; Content Management">Marketing and Branding &amp; Content Management</option>
+      <option value="Medical App Concept Creation &amp; Validation">Medical App Concept Creation &amp; Validation</option>
+      <option value="Medical Apps &amp; Web Platforms and Backend System Development">Medical Apps &amp; Web Platforms and Backend System Development</option>
+      <option value="Other">Other</option>
+      <option value="Pilot">Pilot</option>
+      <option value="Pitch Deck Preparation &amp; Revision">Pitch Deck Preparation &amp; Revision</option>
+      <option value="Pitch competition">Pitch competition</option>
+      <option value="Pricing Strategy &amp; Negotiation Support (E.G., Diga, FDA, Payers)">Pricing Strategy &amp; Negotiation Support (E.G., Diga, FDA, Payers)</option>
+      <option value="Product &amp; Market Fit Analysis">Product &amp; Market Fit Analysis</option>
+      <option value="Product Liability &amp; Malpractice Risk Advisory">Product Liability &amp; Malpractice Risk Advisory</option>
+      <option value="Product Validation &amp; Quality Assurance">Product Validation &amp; Quality Assurance</option>
+      <option value="Recruitment Support">Recruitment Support</option>
+      <option value="Training">Training</option>
+      <option value="Usability Engineering">Usability Engineering</option>
+      <option value="Verification &amp; Validation Testing">Verification &amp; Validation Testing</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="rbar"><span id="rlabel"></span></div>
+<div class="grid" id="grid"></div>
+
+<script>
+(function(){
+var opps=[{"type": "Growth Project", "is_partnership": false, "title": "AI Risk Navigator", "partner": "T\u00dcV Informationstechnik GmbH", "deadline": "29 May 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recmps5KYZy8xbT3z"}, {"type": "Growth Project", "is_partnership": false, "title": "Insurance Go-to-Market Fit Assessment", "partner": "Beandgo", "deadline": "29 May 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Billing & Claims Management", "Business Admin", "Consulting Services", "Go-To-Market Support", "Market Access Support", "Market Research & Competitive Analysis", "Product & Market Fit Analysis"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recLdaPHuAJQ8B9w6"}, {"type": "Expert Cohort", "is_partnership": false, "title": "Medical device risk classification", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "28 Jun 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": [], "url": "https://www.r2gconnect.com/expert-cohort-details?recordId=rec7ZDgPGHaSD93gl&visit=35"}, {"type": "Growth Project", "is_partnership": false, "title": "Clinical Study - Scoping & Clinical Study Project Preparation\u200b", "partner": "CEED | Charite", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Clinical Study Support"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recO1iuiqbRIwlYS2"}, {"type": "Growth Project", "is_partnership": false, "title": "Wearable Readiness Package", "partner": "ROOK", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Regulatory & Legal Support", "Technical Support and AI"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=recdwyIGPo6dF489g"}, {"type": "Growth Project", "is_partnership": false, "title": "DiGA Kick-Start Workshop for an existing App ", "partner": "NEXT Munich", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Technical Support and AI"], "subs": ["Consulting Services", "Go-To-Market Support", "Market Access Support", "Market Research & Competitive Analysis", "Marketing and Branding & Content Management", "Product & Market Fit Analysis", "Access to AI Platforms & Tools", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Usability Engineering", "Verification & Validation Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recINvgQApT8EKe9D"}, {"type": "Growth Project", "is_partnership": false, "title": "Validation Partner Scouting for Digital Health Startups in Europe", "partner": "NSB Project", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Clinical Study/Research and Content Services"], "subs": ["Consulting Services", "Market Access Support", "Product & Market Fit Analysis", "Access to HCPs and Coaches & Patients", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=rec2NxaC4iPhBTAJr"}, {"type": "Growth Project", "is_partnership": false, "title": "Hardware Test Process Design workshop (1 Day)", "partner": "Punktum", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=rec9uSgO2R7Hmqxpm"}, {"type": "Growth Project", "is_partnership": false, "title": "Firmware Engineering workshop (1 Day)", "partner": "Punktum", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Team Growth", "Technical Support and AI"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=recDHGNrl6DRnYNtf"}, {"type": "Growth Project", "is_partnership": false, "title": "Leadership for Growth", "partner": "Beandgo", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Team Growth"], "subs": ["Consulting Services", "Coaching", "Fractional Hires & Interim Manager Search", "Recruitment Support", "Training"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recg3cS6oQkPUXBSL"}, {"type": "Growth Project", "is_partnership": false, "title": "1 EU Country Market Entry Planning", "partner": "NSB Project", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Go-To-Market Support", "Market Access Support", "Market Research & Competitive Analysis", "Product & Market Fit Analysis"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recheLQazJX3OvDUo"}, {"type": "Growth Project", "is_partnership": false, "title": "Landing page design and development ", "partner": "Halo Lab", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Go-To-Market Support", "Marketing and Branding & Content Management"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recwiFM95VivAaQOr"}, {"type": "Growth Project", "is_partnership": false, "title": "Starter Branding", "partner": "Halo Lab", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Marketing and Branding & Content Management"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recGKhalbF60J6Q06"}, {"type": "Growth Project", "is_partnership": false, "title": "Device MVP Strategy + Architecture Workshop (2 Days)", "partner": "Punktum", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Embedded Software Development for Medical Devices", "Usability Engineering"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recTnivyLYjVacRPy"}, {"type": "Growth Project", "is_partnership": false, "title": "Hardware Validation Sprint (1 Day)", "partner": "Punktum", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Embedded Software Development for Medical Devices"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recnLXlvo9W5zJvgb"}, {"type": "Growth Project", "is_partnership": false, "title": "Design of Fundraising Assets (esp. Pitch Deck)", "partner": "Halo Lab", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Investor & Fundraising and Grant Support"], "subs": ["Pitch Deck Preparation & Revision"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recEXUhKv2POGvWnZ"}, {"type": "Growth Project", "is_partnership": false, "title": "Accelerator Readiness & Matching Program for Healthtech Companies", "partner": "Research 2 Guidance", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Acceleration & Incubation", "Go-To-Market Support", "Market Access Support"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recJvsADi96e9m2Rp"}, {"type": "Growth Project", "is_partnership": false, "title": "Market Due Diligence Project for Digital Health Companies", "partner": "Research 2 Guidance", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Investor & Fundraising and Grant Support"], "subs": ["Market Research & Competitive Analysis", "Investor Due Diligence Support"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recDuzkDztyo9C9eD"}, {"type": "Growth Project", "is_partnership": false, "title": "Clinical Data Access & Real-World Evidence for Medical Devices", "partner": "CEED | Charite", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services", "Regulatory & Legal Support"], "subs": ["General Legal & Regulatory Advice", "Access to Patient Data", "AI Clinical Data Analysis & Predictive Analytics"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recll4bpcJMNF86iI"}, {"type": "Growth Project", "is_partnership": false, "title": "Regulatory Strategy \u2013 Bringing Medical Devices to Market ", "partner": "CEED | Charite", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Regulatory & Legal Support"], "subs": ["Go-To-Market Support", "Market Access Support", "General Legal & Regulatory Advice"], "url": "https://www.r2gconnect.com/service-package-details?recordId=reccsSmh2eLQZrtap"}, {"type": "Growth Project", "is_partnership": false, "title": "Regulatory Lab Workshop \u2013 From Training to Actionable Regulatory Strategies", "partner": "CEED | Charite", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["AI Clinical Data Analysis & Predictive Analytics", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recAo7BKIaX6uhkQ5"}, {"type": "Growth Project", "is_partnership": false, "title": "Regulatory Strategy \u2013 Navigating MDR, AI Act & Data Act Compliance", "partner": "CEED | Charite", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["General Legal & Regulatory Advice"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recvlJkN1lBxjUKuE"}, {"type": "Growth Project", "is_partnership": false, "title": "Strategic Clinical Insights \u2013 Enhancing MedTech Development with Expert Guidance", "partner": "CEED | Charite", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Business Services", "Clinical Study/Research and Content Services"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=recQCqtFfOgRF0q5B"}, {"type": "Growth Project", "is_partnership": false, "title": "Healthcare Brownfield Software Development", "partner": "Virtual Nomad", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Cloud Infrastructure & Cybersecurity Setup", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Machine Learning Model Development & Validation", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recS2BaOXlWqnXuRH"}, {"type": "Growth Project", "is_partnership": false, "title": "Healthcare MVP Creation (Idea to Pilot)", "partner": "Virtual Nomad", "deadline": "30 Jun 2026", "days_left": 0, "cats": ["Investor & Fundraising and Grant Support", "Technical Support and AI"], "subs": ["Pitch Deck Preparation & Revision", "Access to AI Platforms & Tools", "Cloud Infrastructure & Cybersecurity Setup", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Verification & Validation Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recgBfdkuuqYGu7Fm"}, {"type": "Growth Project", "is_partnership": false, "title": "Insurance Go-to-Market Fit Quick Test", "partner": "Beandgo", "deadline": "8 Jul 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Consulting Services", "Distribution Support", "Go-To-Market Support", "Market Access Support"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recnYTdCsLsOXouh3"}, {"type": "Deal", "is_partnership": false, "title": "EU and UK Health Tech Regulatory Proposal, with Limited 30 Day 5% Discount", "partner": "BMS Digital Safety", "deadline": "20 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA"], "url": "https://www.r2gconnect.com/deals-details?recordId=recLbNodd214GsR0M"}, {"type": "Pitch Event", "is_partnership": false, "title": "2nd Generation AI-Based Mental Health Solutions", "partner": "R2GConnect Channels", "deadline": "21 Jul 2026", "days_left": 0, "cats": ["AI agents for healthcare", "Self management", "Hospital at home", "Digital therapeutics & Biomarkers"], "subs": ["Commercial partnership", "Pitch competition"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recj4oyFBpyYzkhtr&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Innovative Medication Companion Solutions for Pharma", "partner": "R2GConnect Channels", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Drug companion solution"], "subs": ["Co-development", "Pitch competition", "Commercial partnership", "Joined offer creation", "Pilot"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recPlMBfdHlXgeOob&type=brief"}, {"type": "Acceleration Track", "is_partnership": false, "title": "Digital Health Teams Building Reimbursable DiGA and DTx Products in Germany", "partner": "R2GConnect", "deadline": "31 Jul 2026", "days_left": 0, "cats": [], "subs": [], "url": "https://www.r2gconnect.com/briefing-details?recordId=recNLT1YwstKM9TkX&type=brief"}, {"type": "Acceleration Track", "is_partnership": false, "title": "Wearables & Real-World Data Integration", "partner": "R2GConnect", "deadline": "31 Jul 2026", "days_left": 0, "cats": [], "subs": ["Other"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recio2pXmXm8hfsid&type=brief"}, {"type": "Partnership Opportunity", "is_partnership": true, "title": "Frontiers Health 2026 | Open Call for Start-up and Scale-up Discovery ", "partner": "Frontiers Health", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Care coordination", "Claim and payment management", "Clinical trial and research", "Data analytics and AI", "Data Integration and Management", "Development platform", "Diagnostics", "Digital therapeutics", "Education and information", "Marketplace", "Population health management", "Real world evidence", "Remote monitoring", "Self management", "Telemedicine", "Consulting services", "Data Analytics and AI", "Medical device / wearables", "Patient assistant", "Patient monitoring", "Remote patient monitoring", "Symptoms tracking", "Clinical Trial and Research", "Telehealth / Telemedicine"], "subs": ["Conference participation", "Pitch competition"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recnDK5TV2sd7BBwx&type=brief"}, {"type": "Deal", "is_partnership": false, "title": "Free DiGA Architecture Session \u2013 avoid costly mistakes in your product setup (60 min)", "partner": "NEXT Munich", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Cloud Infrastructure & Cybersecurity Setup", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Medical App Concept Creation & Validation", "Product Validation & Quality Assurance"], "url": "https://www.r2gconnect.com/deals-details?recordId=rechbtCF1BLCJ7yda"}, {"type": "Deal", "is_partnership": false, "title": "Secure you DiGA (Digital Health Applications) Reimbursement - Free 45-Minute Consultation ", "partner": "T\u00dcV Informationstechnik GmbH", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits"], "url": "https://www.r2gconnect.com/deals-details?recordId=recUwsSSEbjYVdVto"}, {"type": "Deal", "is_partnership": false, "title": "Can Wearables Power Your Product? Free Feasibility Check + Live API Access", "partner": "Thryve Health", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Access to AI Platforms & Tools", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development"], "url": "https://www.r2gconnect.com/deals-details?recordId=rectWYNmL5deVhRA5"}, {"type": "Deal", "is_partnership": false, "title": "Medical devices \u2013 Regulatory science support", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "Clinical Usability Testing", "Clinical Study Support", "Biomarker/API services"], "url": "https://www.r2gconnect.com/deals-details?recordId=recF1qCpSUn89Ryok"}, {"type": "Deal", "is_partnership": false, "title": "Wearables: safe and secure", "partner": "T\u00dcV Informationstechnik GmbH", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits", "Product Liability & Malpractice Risk Advisory"], "url": "https://www.r2gconnect.com/deals-details?recordId=recROFsRnppWaiEwc"}, {"type": "Deal", "is_partnership": false, "title": "Free Hardware & IoT Feasibility Call", "partner": "Punktum", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Embedded Software Development for Medical Devices"], "url": "https://www.r2gconnect.com/deals-details?recordId=recgCdVpXnk2Tn8l4"}, {"type": "Deal", "is_partnership": false, "title": "Free consultation on Quality and Regulatory Affairs for medical devices (1 hr) ", "partner": "Innokas", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": [], "url": "https://www.r2gconnect.com/deals-details?recordId=recDWQ0EHpCUkaK5n"}, {"type": "Deal", "is_partnership": false, "title": "30 days Free Trial Access for Wearable Data API + Free Consultation", "partner": "ROOK", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development"], "url": "https://www.r2gconnect.com/deals-details?recordId=recSbD6eqYVazzXAa"}, {"type": "Deal", "is_partnership": false, "title": "Skip the R&D trial and error. Claim a free technical audit for your MedTech project.", "partner": "Plexteq", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Cloud Infrastructure & Cybersecurity Setup", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Machine Learning Model Development & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Usability Engineering"], "url": "https://www.r2gconnect.com/deals-details?recordId=recmt18WOBIuLlKL4"}, {"type": "Deal", "is_partnership": false, "title": "Free 45-Minute Briefing on FIPS 140-3 Certification for US Market Entry", "partner": "T\u00dcV Informationstechnik GmbH", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Market Access Support", "Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA"], "url": "https://www.r2gconnect.com/deals-details?recordId=rec9w8emORGr0pUng"}, {"type": "Deal", "is_partnership": false, "title": "How to use wearable data in clinical studies - Workshop and joined pilot", "partner": "ROOK", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Access to AI Platforms & Tools", "Health IT Infrastructure Services", "Biomarker/API services"], "url": "https://www.r2gconnect.com/deals-details?recordId=recogtvINWhf4hLSV"}, {"type": "Deal", "is_partnership": false, "title": "Clinical Study Starter Package With Wearable Data Integration", "partner": "Thryve Health", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Access to Patient Data", "AI Clinical Data Analysis & Predictive Analytics", "Biomarker/API services", "Clinical Study Support"], "url": "https://www.r2gconnect.com/deals-details?recordId=rec2oMkcquPzDlkjv"}, {"type": "Deal", "is_partnership": false, "title": "Free Wearable Data Strategy Session for Insurtech & Healthtech", "partner": "Thryve Health", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Access to AI Platforms & Tools", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Machine Learning Model Development & Validation", "Medical Apps & Web Platforms and Backend System Development", "AI Clinical Data Analysis & Predictive Analytics", "Biomarker/API services", "Clinical Study Support"], "url": "https://www.r2gconnect.com/deals-details?recordId=recmAejOvvnlybzHl"}, {"type": "Deal", "is_partnership": false, "title": "Wearable Health Data Workshop (2 sessions)", "partner": "ROOK", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs"], "url": "https://www.r2gconnect.com/deals-details?recordId=recApYEep0cLVUmYL"}, {"type": "Deal", "is_partnership": false, "title": "Free 1-Hour Consultation: How to generate Clinical Evidence for your product\n", "partner": "CEED | Charit\u00e9", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Access to HCPs and Coaches & Patients", "Access to Patient Data", "AI Clinical Data Analysis & Predictive Analytics", "Clinical Study Support"], "url": "https://www.r2gconnect.com/deals-details?recordId=recy9mEBlcJNrruPT"}, {"type": "Deal", "is_partnership": false, "title": "Investor Pitch Deck Review: 45-Min 1:1 Diagnostic (RRP $400, Now $250)", "partner": "Untangling Labs", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Business Services", "Investor & Fundraising and Grant Support"], "subs": ["Consulting Services", "Pitch Deck Preparation & Revision"], "url": "https://www.r2gconnect.com/deals-details?recordId=recFuQG8P1rZAAwN8"}, {"type": "Deal", "is_partnership": false, "title": "Medicinal products \u2013 Regulatory science support", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services", "Regulatory & Legal Support"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Biomarker/API services", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=recZip1MA8EI2BlZF"}, {"type": "Deal", "is_partnership": false, "title": "SaMD/MDSW devices \u2013 Regulatory science support", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services", "Regulatory & Legal Support"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "Biomarker/API services", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=rec8JpzNC6ZekL5ra"}, {"type": "Deal", "is_partnership": false, "title": "IVD devices \u2013 Regulatory science support", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services", "Regulatory & Legal Support"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "Biomarker/API services", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=recbkhSJHtrWCwJJn"}, {"type": "Deal", "is_partnership": false, "title": "AI SaMD Regulatory Position & Readiness Diagnostic (Free 45\u2011min expert session + written regulatory map)", "partner": "BMS Digital Safety", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": [], "url": "https://www.r2gconnect.com/deals-details?recordId=recd0dAYy5tKkYulG"}, {"type": "Deal", "is_partnership": false, "title": "Solve wearable integration challenges - Free Asessment + Trial Access", "partner": "ROOK", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Access to AI Platforms & Tools", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Product Validation & Quality Assurance"], "url": "https://www.r2gconnect.com/deals-details?recordId=recZ446VX1L9S60WK"}, {"type": "Deal", "is_partnership": false, "title": "Scaling Wearable Data in Health-Tech", "partner": "ROOK", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Access to AI Platforms & Tools", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs"], "url": "https://www.r2gconnect.com/deals-details?recordId=reclNcmpfKQ5GziZk"}, {"type": "Deal", "is_partnership": false, "title": "Secure Your DiPA Reimbursement - Free 45-Minute Consultation ", "partner": "T\u00dcV Informationstechnik GmbH", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits"], "url": "https://www.r2gconnect.com/deals-details?recordId=recsHhfNhy15aZ5vC"}, {"type": "Deal", "is_partnership": false, "title": "Free NHS Regulatory Roadmap : Exactly What to Do, Step by Step (RRP \u00a31200)", "partner": "BMS Digital Safety", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Go-To-Market Support", "Market Access Support", "Pricing Strategy & Negotiation Support (E.G., Diga, FDA, Payers)", "Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways", "Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits", "General Legal & Regulatory Advice"], "url": "https://www.r2gconnect.com/deals-details?recordId=recoGXQERzqwvhRYe"}, {"type": "Deal", "is_partnership": false, "title": "EU & UK Regulatory Status Check: Are You MDR-Ready or at Risk?", "partner": "BMS Digital Safety", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": ["Consulting Services", "General Business and Consulting Services", "Go-To-Market Support", "Market Access Support", "Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways", "Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits", "General Legal & Regulatory Advice"], "url": "https://www.r2gconnect.com/deals-details?recordId=recRKmiTItL6jQI8F"}, {"type": "Deal", "is_partnership": false, "title": "Free 30min consultation + Trial Access for Wearable Data API and analytics", "partner": "Thryve Health", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Access to AI Platforms & Tools", "Access to Patient Data", "AI Clinical Data Analysis & Predictive Analytics", "Biomarker/API services", "Clinical Study Support"], "url": "https://www.r2gconnect.com/deals-details?recordId=rec73FG74v2YZflKd"}, {"type": "Growth Project", "is_partnership": false, "title": "DiGA Kick-Start Workshop for a planned App Project ", "partner": "NEXT Munich", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Business Services", "Technical Support and AI"], "subs": ["Consulting Services", "Go-To-Market Support", "Market Access Support", "Market Research & Competitive Analysis", "Marketing and Branding & Content Management", "Product & Market Fit Analysis", "Access to AI Platforms & Tools", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Usability Engineering", "Verification & Validation Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=rec1LkUCxwYFlywok"}, {"type": "Growth Project", "is_partnership": false, "title": "Clinical Usability Testing \u2013 Validating MedTech for Real-World Use", "partner": "CEED | Charite", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=rec6TYJX5Ha4KT2Ll"}, {"type": "Growth Project", "is_partnership": false, "title": "Clinical validation for health products", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=reczhZBhawmGqIGV6"}, {"type": "Growth Project", "is_partnership": false, "title": "Regulatory readiness for health products", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services", "Regulatory & Legal Support"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "Biomarker/API services", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recSVgjDHIJBIoN1K"}, {"type": "Growth Project", "is_partnership": false, "title": "Electronic data capture for clinical studies - CRF Ready", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recVHTKez13tMndFv"}, {"type": "Growth Project", "is_partnership": false, "title": "Training on regulatory science and clinical validation", "partner": "Associa\u00e7\u00e3o CoLAB TRIALS", "deadline": "31 Jul 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services", "Regulatory & Legal Support"], "subs": ["Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recQGNF2oCj6P1RaG"}, {"type": "Partnership Opportunity", "is_partnership": true, "title": " Digital Health, Life Sciences, and MedTech Companies Seeking U.S. Market Entry, Through Proven Equity-Free Accelerator", "partner": "WorldUpstart", "deadline": "2 Aug 2026", "days_left": 0, "cats": ["AI imaging tools", "Blockchain for medical records & consent", "Augment/Virtual reality", "Care coordination", "Claim and payment management", "Clinical trial and research", "Development platform / White label", "Diagnostics & detection", "Digital biomarker", "Digital therapeutics", "Digital therapeutics & Biomarkers", "Digital twins", "Disease management", "Drug companion solution", "Drug discovery", "EHR/MHR", "Glucose monitoring", "Healthcare interoperability / FHIR integration", "Longevity & aging tech", "Medical device / wearables", "Medical device companion solution", "Medication adherance", "Patient assistant", "Personal genetics", "Pharmacy solutions", "Population health management", "Practice management", "Predictive Analysis", "Real world evidence", "Remote patient monitoring", "Self management", "Sleep tech", "Symptoms tracking", "Tele-pharmacy", "Telehealth / Telemedicine", "Voice Tech", "Workforce / shift management"], "subs": ["Acceleration/Incubation"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recThO3qt2ccjTotJ&type=brief"}, {"type": "Deal", "is_partnership": false, "title": "Free Regulatory Consultation for SaMD", "partner": "DataArt", "deadline": "8 Aug 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": [], "url": "https://www.r2gconnect.com/deals-details?recordId=recwv7Fx67uvyhORR"}, {"type": "Growth Project", "is_partnership": false, "title": "Regulated Digital Health Software Development", "partner": "DataArt", "deadline": "8 Aug 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Medical Apps & Web Platforms and Backend System Development"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recGncx0MLaAuIiL5"}, {"type": "Growth Project", "is_partnership": false, "title": "Health Data & Interoperability Services", "partner": "DataArt", "deadline": "8 Aug 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=recpyHzeMUG6BKe1H"}, {"type": "Growth Project", "is_partnership": false, "title": "Regulatory Compliance Consultancy for AI in SaMD", "partner": "DataArt", "deadline": "8 Aug 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=recUWzI3yfNXy0oeu"}, {"type": "Growth Project", "is_partnership": false, "title": "AI Component Development for Digital Health Applications", "partner": "DataArt", "deadline": "8 Aug 2026", "days_left": 0, "cats": ["Regulatory & Legal Support"], "subs": [], "url": "https://www.r2gconnect.com/service-package-details?recordId=recK2hmF6DR6Z0nOp"}, {"type": "Growth Project", "is_partnership": false, "title": "Venture Readiness and Investor Relations Support", "partner": "Nuvantta Strategic Consultants FZE", "deadline": "15 Aug 2026", "days_left": 0, "cats": ["Investor & Fundraising and Grant Support"], "subs": ["Fundraising Strategy", "Investor Due Diligence Support", "Investor Search & Fundraising", "Pitch Deck Preparation & Revision"], "url": "https://www.r2gconnect.com/service-package-details?recordId=recwl23LEXUDNuGEE"}, {"type": "Deal", "is_partnership": false, "title": "GCC Market Readiness Snapshot, 50% discount", "partner": "Nuvantta Strategic Consultants FZE", "deadline": "17 Aug 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Business Admin", "Consulting Services", "Go-To-Market Support", "Localization & Translation", "Market Research & Competitive Analysis"], "url": "https://www.r2gconnect.com/deals-details?recordId=rec6yCegoUCv0gzSH"}, {"type": "Pitch Event", "is_partnership": false, "title": "AI Clinical Documentation & Ambient Scribing Solutions", "partner": "R2GConnect Channels", "deadline": "25 Aug 2026", "days_left": 0, "cats": ["AI agents for healthcare"], "subs": ["Commercial partnership", "Pilot", "Pitch competition"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recczRA1ep31S7uMV&type=brief"}, {"type": "Deal", "is_partnership": false, "title": "FREE Pitch deck review for digital health startups", "partner": "Research2Guidance", "deadline": "30 Aug 2026", "days_left": 0, "cats": ["Investor & Fundraising and Grant Support"], "subs": [], "url": "https://www.r2gconnect.com/deals-details?recordId=recafam9fSwA9Z0lt"}, {"type": "Pitch Event", "is_partnership": false, "title": "Remote Patient Monitoring Solutions for Hospitals", "partner": "R2GConnect Channels", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Remote patient monitoring"], "subs": ["Commercial partnership", "Conference participation", "Pitch competition", "Co-development"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recjitUwqIGlttlRI&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Digital Tools for Pharma to Engage HCPs and Clinics Beyond the Pill", "partner": "R2GConnect Channels", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Diagnostics & detection", "Patient assistant", "Medication adherance", "Practice management"], "subs": ["Commercial partnership"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recB00V2eO0JFytqn&type=brief"}, {"type": "Partnership Opportunity", "is_partnership": true, "title": "Clinical trial development & submission solutions", "partner": "Microsoft for Startups", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Clinical trial and research"], "subs": ["Acceleration/Incubation"], "url": "https://www.r2gconnect.com/briefing-details?recordId=reci9y71NEMmxLyqu&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Generative AI for Customer Support & Policy Administration", "partner": "R2GConnect Channels", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["AI productivity tools", "Data analytics and AI", "Data integration and management"], "subs": ["Pitch competition", "Commercial partnership", "Conference participation", "Pilot"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recfsES7FWZkLKwsi&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "AI-Driven Claims Management & Fraud Detection Solutions", "partner": "R2GConnect Channels", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["AI productivity tools", "Claim and payment management"], "subs": ["Pitch competition", "Commercial partnership", "Joined offer creation", "Conference participation"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recb30016gFBtKbeh&type=brief"}, {"type": "Deal", "is_partnership": false, "title": "\ud83d\udcacFree Micro-Consulting for DiGA, DTx & Medical Software Questions", "partner": "BAYOOMED GmbH", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["General Business and Consulting Services"], "url": "https://www.r2gconnect.com/deals-details?recordId=recx9JjwMieWCxUAu"}, {"type": "Deal", "is_partnership": false, "title": "Workshop :: Can AI Speed Up Your Product Development?", "partner": "Virtual Nomad", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Acceleration & Incubation", "Consulting Services", "General Business and Consulting Services", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Usability Engineering", "Verification & Validation Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=recxIjSb9kKm5HGVC"}, {"type": "Deal", "is_partnership": false, "title": "\ud83d\udd0eFree TechDoc Pre-Check for Medical Software, Mobile Health Apps & Digital Therapeutics \u2014 EU MDR & FDA Ready", "partner": "BAYOOMED GmbH", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Assistance With Notified Body Submissions or Pre-Market Approvals", "Product Validation & Quality Assurance"], "url": "https://www.r2gconnect.com/deals-details?recordId=recTsszIabMRC4abB"}, {"type": "Deal", "is_partnership": false, "title": "Free 1-Hour Consultation: Improve Your MedTech Product\u2019s Clinical Usability and get User's Feedback", "partner": "CEED | Charit\u00e9", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Product Validation & Quality Assurance"], "url": "https://www.r2gconnect.com/deals-details?recordId=recq4CjpmN3miVJAz"}, {"type": "Deal", "is_partnership": false, "title": "Free 45 min  \u201cCharit\u00e9 Navigator\u201d Session - How to succeed in the hospical ecosystem?\n", "partner": "CEED | Charit\u00e9", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Clinical Study/Research and Content Services"], "subs": ["Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "Access to HCPs and Coaches & Patients", "Access to Patient Data", "AI Clinical Data Analysis & Predictive Analytics", "Clinical Study Support", "Clinical Usability Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=recbK80KVAHqnQRbv"}, {"type": "Deal", "is_partnership": false, "title": "Connected Devices Support (IoT & App Development) - Free 30-Minute Brainstorming Session", "partner": "NEXT Munich", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Technical Support and AI"], "subs": ["Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance"], "url": "https://www.r2gconnect.com/deals-details?recordId=reccKbmkFDUvaTHdm"}, {"type": "Deal", "is_partnership": false, "title": "HIPAA 2026 Readiness: Turn Mandatory Security Updates into Infrastructure Value", "partner": "Plexteq", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Regulatory & Legal Support", "Technical Support and AI"], "subs": ["Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA", "GDPR/HIPAA Compliance Audits", "Cloud Infrastructure & Cybersecurity Setup", "Embedded Software Development for Medical Devices", "Health IT Infrastructure Services", "Integration With Electronic Health Records (EHR/EMR) & APIs", "Machine Learning Model Development & Validation", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Verification & Validation Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=recUTBMFjblkuMBkf"}, {"type": "Deal", "is_partnership": false, "title": "Workshop :: Scope Your First Customer and V&V Ready Product Version", "partner": "Virtual Nomad", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Business Services"], "subs": ["Acceleration & Incubation", "Consulting Services", "General Business and Consulting Services", "Product & Market Fit Analysis", "Medical App Concept Creation & Validation", "Medical Apps & Web Platforms and Backend System Development", "Product Validation & Quality Assurance", "Usability Engineering", "Verification & Validation Testing"], "url": "https://www.r2gconnect.com/deals-details?recordId=rec0POkQdrTgO0f4w"}, {"type": "Expert Cohort", "is_partnership": false, "title": "From Confusing to Compelling : Get your pitch investor-ready & buyer-ready.", "partner": "Untangling Labs", "deadline": "31 Aug 2026", "days_left": 0, "cats": ["Investor & Fundraising and Grant Support", "Pitch Deck Preparation & Revision", "Consulting Services"], "subs": [], "url": "https://www.r2gconnect.com/expert-cohort-details?recordId=rec1t4WlNcaBSpMPH&visit=75"}, {"type": "Pitch Event", "is_partnership": false, "title": "Digital Health Solutions for Pharmacovigilance and Safety Signal Detection", "partner": "R2GConnect Channels", "deadline": "14 Sep 2026", "days_left": 0, "cats": ["AI productivity tools", "Data analytics and AI", "EHR/MHR", "Real world evidence", "Remote patient monitoring"], "subs": ["Commercial partnership", "Pitch competition", "Pilot"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recBjb2ICzyvC8cut&type=brief"}, {"type": "Expert Cohort", "is_partnership": false, "title": "AI Validation & Deployment Accelerator", "partner": "Punktum", "deadline": "14 Sep 2026", "days_left": 0, "cats": ["Technical and Product Development Services", "Regulatory & Legal Support", "Consulting Services"], "subs": [], "url": "https://www.r2gconnect.com/expert-cohort-details?recordId=recHWg1pidc2Kegm4&visit=10"}, {"type": "Pitch Event", "is_partnership": false, "title": "Digital \"Hospital at Home\" Solutions", "partner": "R2GConnect Channels", "deadline": "29 Sep 2026", "days_left": 0, "cats": ["AI agents for healthcare", "AI productivity tools", "Remote patient monitoring", "Home testing"], "subs": ["Pitch competition", "Commercial partnership", "Co-development"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recFN1hNljhf3eltb&type=brief"}, {"type": "Partnership Opportunity", "is_partnership": true, "title": "US Fast Pass Program: High Potential HealthTech Companies for US Market Entry", "partner": "New Enterprise Ventures", "deadline": "30 Sep 2026", "days_left": 0, "cats": [], "subs": [], "url": "https://www.r2gconnect.com/briefing-details?recordId=rec6fXqOdFVwisohl&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "AI Member-Facing Chatbots for Health Plans & Payers", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["AI agents for healthcare", "Care coordination", "Claim and payment management", "Diagnostics & detection", "Education and information", "Patient assistant", "Medication adherance"], "subs": ["Pitch competition", "Commercial partnership"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recNllI16zFAiuhk0&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Digital Tools That Empower Patients During Their Hospital Stay", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["Care coordination", "Education and information", "Patient assistant", "Remote patient monitoring"], "subs": ["Pitch competition", "Commercial partnership"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recksr12KNggeUoIq&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Hospital Workflow Automation & Operational Efficiency Platforms", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["AI productivity tools", "Care coordination", "Data integration and management", "Education and information", "Practice management"], "subs": ["Commercial partnership", "Co-development"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recfGaSoOWr6inpo1&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Digital Patient Recruitment Solutions for Clinical Trials", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["Clinical trial and research"], "subs": ["Commercial partnership"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recMQKWpAFYhv9svL&type=brief"}, {"type": "Partnership Opportunity", "is_partnership": true, "title": "AI Augmented research & drug discovery solutions", "partner": "Microsoft for Startups", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["AI productivity tools"], "subs": ["Acceleration/Incubation"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recfsuOMttwsBK7Lq&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Digital Therapeutics (DTx) Solutions", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["Digital therapeutics"], "subs": ["Commercial partnership", "Pilot", "Co-development"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recUV6MTctI3dY463&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Analytics, AI & Decision Support Systems for HCPs/Hospitals", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["AI productivity tools", "Data analytics and AI", "EHR/MHR", "Diagnostics & detection"], "subs": ["Co-development", "Commercial partnership", "Conference participation"], "url": "https://www.r2gconnect.com/briefing-details?recordId=reckFlO77vz9QYbq6&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Hospital >30% Cost Saver Solutions", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["AI productivity tools", "Healthcare interoperability / FHIR integration", "Practice management", "Remote patient monitoring", "Telehealth / Telemedicine", "Workforce / shift management"], "subs": ["Pitch competition", "Commercial partnership", "Conference participation"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recYYQ1Y4nNkEe7B2&type=brief"}, {"type": "Pitch Event", "is_partnership": false, "title": "Real-World Evidence (RWE) Platforms and Advanced Analytics for Pharma", "partner": "R2GConnect Channels", "deadline": "30 Sep 2026", "days_left": 0, "cats": ["Real world evidence", "Data analytics and AI"], "subs": ["Commercial partnership"], "url": "https://www.r2gconnect.com/briefing-details?recordId=recsaRuTLlXDdc0k4&type=brief"}, {"type": "Expert Cohort", "is_partnership": false, "title": "HealthTech Regulatory Strategy Accelerator", "partner": "BMS Digital Safety", "deadline": "5 Oct 2026", "days_left": 0, "cats": ["Regulatory & Legal Support", "Market Access Support", "Consulting Services", "Business Services"], "subs": [], "url": "https://www.r2gconnect.com/expert-cohort-details?recordId=recgbH5gyWW493doD&visit=9"}, {"type": "Expert Cohort", "is_partnership": false, "title": "From Expert to the Leader Your Startup Needs Next", "partner": "Beandgo", "deadline": "30 Oct 2026", "days_left": 0, "cats": ["Team Growth"], "subs": [], "url": "https://www.r2gconnect.com/expert-cohort-details?recordId=rec6wx372rfAhwQdX&visit=17"}];
+// Recalculate days_left dynamically from today's date
+(function(){
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  var months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  opps.forEach(function(o){
+    var parts = o.deadline.split(' ');
+    if(parts.length === 3){
+      var d = parseInt(parts[0],10);
+      var m = months[parts[1]];
+      var y = parseInt(parts[2],10);
+      if(!isNaN(d) && m !== undefined && !isNaN(y)){
+        var dl = new Date(y, m, d);
+        dl.setHours(0,0,0,0);
+        o.days_left = Math.round((dl - today) / 86400000);
+      }
+    }
+  });
+})();
+var aF='all',aS='dl-asc',aP='',aC='',aSub='',aQ='';
+
+var fb=document.getElementById('fb');
+var chev=document.getElementById('chev');
+document.getElementById('ftoggle').addEventListener('click',function(){
+  if(window.innerWidth>640)return;
+  var open=fb.classList.toggle('open');
+  chev.style.transform=open?'rotate(180deg)':'';
+  this.setAttribute('aria-expanded',open);
+});
+
+function getSorted(arr){
+  var a=arr.slice();
+  if(aS==='dl-asc')return a.sort(function(x,y){return x.days_left-y.days_left;});
+  if(aS==='dl-desc')return a.sort(function(x,y){return y.days_left-x.days_left;});
+  if(aS==='az')return a.sort(function(x,y){return x.title.localeCompare(y.title);});
+  if(aS==='za')return a.sort(function(x,y){return y.title.localeCompare(x.title);});
+  if(aS==='type'){
+    var ord={'Pitch Event':0,'Acceleration Track':1,'Partnership Opportunity':2,'Expert Cohort':3,'Growth Project':4,'Deal':5};
+    return a.sort(function(x,y){return (ord[x.type]||9)-(ord[y.type]||9);});
+  }
+  return a;
+}
+
+function getFiltered(){
+  var r=opps.filter(function(o){return o.days_left>=0;});
+  if(aF==='urgent')r=r.filter(function(o){return o.days_left<=7;});
+  else if(aF!=='all')r=r.filter(function(o){return o.type===aF.slice(2);});
+  if(aP)r=r.filter(function(o){return o.partner===aP;});
+  if(aC)r=r.filter(function(o){return o.cats.indexOf(aC)>=0;});
+  if(aSub)r=r.filter(function(o){return o.subs.indexOf(aSub)>=0;});
+  if(aQ){
+    var q=aQ.toLowerCase();
+    r=r.filter(function(o){
+      return o.title.toLowerCase().indexOf(q)>=0
+        ||o.partner.toLowerCase().indexOf(q)>=0
+        ||o.type.toLowerCase().indexOf(q)>=0
+        ||o.cats.some(function(c){return c.toLowerCase().indexOf(q)>=0;})
+        ||o.subs.some(function(s){return s.toLowerCase().indexOf(q)>=0;});
+    });
+  }
+  return r;
+}
+
+function bclass(t){
+  if(t==='Pitch Event')return 'bp';
+  if(t==='Acceleration Track')return 'ba';
+  if(t==='Deal')return 'bd';
+  if(t==='Growth Project')return 'bg';
+  if(t==='Partnership Opportunity')return 'bpa';
+  if(t==='Expert Cohort')return 'be';
+  return 'bd';
+}
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function card(o){
+  var urgent=o.days_left<=7;
+  var soon=o.days_left>7&&o.days_left<=30;
+  var urgTxt=urgent?o.days_left+'d left':(soon?o.days_left+'d left':'');
+  var dlCls=(urgent||soon)?' soon':'';
+  var ctags=o.cats.slice(0,3).map(function(c){return '<span class="ctag">'+esc(c)+'</span>';}).join('');
+  var stags=o.subs.slice(0,3).map(function(s){return '<span class="stag">'+esc(s)+'</span>';}).join('');
+  var h='<div class="card" data-url="'+esc(o.url)+'" tabindex="0">';
+  h+='<div class="card-top">';
+  h+='<div class="badges"><span class="badge '+bclass(o.type)+'">'+esc(o.type)+'</span>';
+  if(urgent)h+='<span class="badge bu">⚡ Closing Soon</span>';
+  h+='</div>';
+  h+='<div class="card-title">'+esc(o.title)+'</div>';
+  h+='<div class="card-partner"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg> '+esc(o.partner)+'</div>';
+  h+='</div>';
+  if(ctags||stags)h+='<div class="tags">'+ctags+stags+'</div>';
+  h+='<div class="card-meta">';
+  h+='<span class="dl'+dlCls+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> '+esc(o.deadline)+(urgTxt?' &middot; <strong>'+urgTxt+'</strong>':'')+'</span>';
+  h+='<a class="cta" href="'+esc(o.url)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">Apply <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>';
+  h+='</div></div>';
+  return h;
+}
+
+function render(){
+  var f=getSorted(getFiltered());
+  var grid=document.getElementById('grid');
+  var lbl=document.getElementById('rlabel');
+  var activeCount=opps.filter(function(o){return o.days_left>=0;}).length;
+  document.getElementById('total-count').textContent=f.length;
+  var urgentN=opps.filter(function(o){return o.days_left>=0&&o.days_left<=7;}).length;
+  document.getElementById('urgent-count').textContent='⚡ '+urgentN;
+  if(!f.length){
+    grid.innerHTML='<div class="empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg><p style="margin-top:10px">No opportunities match your filters.</p></div>';
+    lbl.textContent='';
+    return;
+  }
+  grid.innerHTML=f.map(card).join('');
+  lbl.textContent='Showing '+f.length+' of '+activeCount+' opportunities';
+  grid.querySelectorAll('.card').forEach(function(el){
+    el.addEventListener('click',function(e){
+      if(e.target.closest('a'))return;
+      var u=this.getAttribute('data-url');
+      if(u)window.open(u,'_blank','noopener');
+    });
+  });
+}
+
+document.querySelectorAll('.fbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active');});
+    this.classList.add('active');
+    aF=this.getAttribute('data-f');
+    render();
+  });
+});
+
+function bindSel(id,fn){
+  document.getElementById(id).addEventListener('change',function(){
+    fn(this.value);
+    this.classList.toggle('av',!!this.value);
+    render();
+  });
+}
+bindSel('sort',function(v){aS=v;});
+bindSel('psel',function(v){aP=v;});
+bindSel('csel',function(v){aC=v;});
+bindSel('ssel',function(v){aSub=v;});
+
+document.getElementById('sinp').addEventListener('input',function(){
+  aQ=this.value.trim();
+  render();
+});
+
+render();
+})();
+</script>
+</body>
+</html>
