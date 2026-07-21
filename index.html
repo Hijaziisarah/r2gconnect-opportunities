@@ -299,6 +299,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <option value="Verification &amp; Validation Testing">Verification &amp; Validation Testing</option>
       </select>
     </div>
+    <div class="frow">
+      <button class="fbtn" id="copylink" style="border-color:#5a5fcc;color:#5a5fcc;font-weight:600">🔗 Copy Link to This View</button>
+    </div>
   </div>
 </div>
 
@@ -328,6 +331,63 @@ var opps=[{"type": "Growth Project", "is_partnership": false, "title": "AI Risk 
   });
 })();
 var aF='all',aS='dl-asc',aP='',aC='',aSub='',aQ='';
+
+// ---- URL <-> filter state sync ----
+function updateURL(){
+  var params=new URLSearchParams();
+  if(aF&&aF!=='all')params.set('type',aF);
+  if(aS&&aS!=='dl-asc')params.set('sort',aS);
+  if(aP)params.set('partner',aP);
+  if(aC)params.set('category',aC);
+  if(aSub)params.set('sub',aSub);
+  if(aQ)params.set('q',aQ);
+  var qs=params.toString();
+  var newUrl=window.location.pathname+(qs?'?'+qs:'');
+  window.history.replaceState(null,'',newUrl);
+}
+
+function loadFromURL(){
+  var params=new URLSearchParams(window.location.search);
+  if(params.has('type')){
+    aF=params.get('type');
+    document.querySelectorAll('.fbtn').forEach(function(x){
+      x.classList.toggle('active',x.getAttribute('data-f')===aF);
+    });
+  }
+  if(params.has('sort')){
+    aS=params.get('sort');
+    var sortEl=document.getElementById('sort');
+    sortEl.value=aS;
+  }
+  if(params.has('partner')){
+    aP=params.get('partner');
+    var pEl=document.getElementById('psel');
+    pEl.value=aP;
+    pEl.classList.toggle('av',!!aP);
+  }
+  if(params.has('category')){
+    aC=params.get('category');
+    var cEl=document.getElementById('csel');
+    cEl.value=aC;
+    cEl.classList.toggle('av',!!aC);
+  }
+  if(params.has('sub')){
+    aSub=params.get('sub');
+    var sEl=document.getElementById('ssel');
+    sEl.value=aSub;
+    sEl.classList.toggle('av',!!aSub);
+  }
+  if(params.has('q')){
+    aQ=params.get('q');
+    document.getElementById('sinp').value=aQ;
+  }
+  // if any filter came from the URL, expand the filter panel on mobile so it's visible
+  if([...params.keys()].length && window.innerWidth<=640){
+    fb.classList.add('open');
+    chev.style.transform='rotate(180deg)';
+    document.getElementById('ftoggle').setAttribute('aria-expanded','true');
+  }
+}
 
 var fb=document.getElementById('fb');
 var chev=document.getElementById('chev');
@@ -436,6 +496,7 @@ document.querySelectorAll('.fbtn').forEach(function(b){
     document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active');});
     this.classList.add('active');
     aF=this.getAttribute('data-f');
+    updateURL();
     render();
   });
 });
@@ -444,6 +505,7 @@ function bindSel(id,fn){
   document.getElementById(id).addEventListener('change',function(){
     fn(this.value);
     this.classList.toggle('av',!!this.value);
+    updateURL();
     render();
   });
 }
@@ -452,11 +514,33 @@ bindSel('psel',function(v){aP=v;});
 bindSel('csel',function(v){aC=v;});
 bindSel('ssel',function(v){aSub=v;});
 
+var sinpTimer;
 document.getElementById('sinp').addEventListener('input',function(){
   aQ=this.value.trim();
+  clearTimeout(sinpTimer);
+  sinpTimer=setTimeout(updateURL,400); // debounce URL updates while typing
   render();
 });
 
+document.getElementById('copylink').addEventListener('click',function(){
+  updateURL();
+  var url=window.location.href;
+  var done=function(){
+    var btn=document.getElementById('copylink');
+    var orig=btn.textContent;
+    btn.textContent='Copied!';
+    setTimeout(function(){btn.textContent=orig;},1600);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done).catch(function(){
+      window.prompt('Copy this link:',url);
+    });
+  } else {
+    window.prompt('Copy this link:',url);
+  }
+});
+
+loadFromURL();
 render();
 })();
 </script>
