@@ -37,6 +37,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .fsel:focus{border-color:#898dfa}
 .fsel.av{border-color:#5a5fcc;color:#5a5fcc}
 
+.msel{position:relative}
+.mselbtn{border:1.5px solid #d0d0e0;background:#fff;border-radius:20px;padding:5px 28px 5px 12px;font-size:12px;cursor:pointer;color:#555;font-family:inherit;outline:none;transition:border-color .14s;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;position:relative}
+.mselbtn::after{content:'▾';position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:9px;color:#aaa}
+.mselbtn:hover{border-color:#898dfa;color:#5a5fcc}
+.mselbtn.av{border-color:#5a5fcc;color:#5a5fcc;font-weight:600}
+.msel-panel{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid #e0e0ec;border-radius:10px;box-shadow:0 8px 28px rgba(40,40,80,.16);padding:8px;max-height:280px;overflow-y:auto;z-index:200;min-width:240px}
+.msel-panel.open{display:block}
+.msel-opt{display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:6px;font-size:12.5px;color:#333;cursor:pointer;white-space:nowrap}
+.msel-opt:hover{background:#f5f4fb}
+.msel-opt input{cursor:pointer;accent-color:#898dfa}
+.msel-actions{display:flex;justify-content:space-between;padding:4px 6px 6px;border-top:1px solid #eee;margin-top:4px}
+.msel-actions button{background:none;border:none;color:#5a5fcc;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600}
+.msel-actions button:hover{text-decoration:underline}
+
+
 .sw{position:relative;display:flex;align-items:center}
 .si{position:absolute;left:10px;color:#ccc;pointer-events:none}
 .sinp{border:1.5px solid #d0d0e0;background:#fff;border-radius:20px;padding:5px 12px 5px 30px;font-size:12px;color:#444;font-family:inherit;outline:none;width:190px;transition:border-color .14s}
@@ -122,7 +137,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       </div>
       <div class="fdiv"></div>
       <span class="flabel">Type</span>
-      <button class="fbtn active" data-f="all">All</button>
+      <button class="fbtn active" data-f="all">All Types</button>
       <button class="fbtn ub" data-f="urgent">⚡ Closing Soon</button>
       <button class="fbtn" data-f="t:Pitch Event">Pitch Events</button>
       <button class="fbtn" data-f="t:Acceleration Track">Acceleration</button>
@@ -142,162 +157,180 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     </div>
     <div class="frow">
       <span class="flabel">Partner</span>
-      <select class="fsel" id="psel">
-        <option value="">All Partners</option>
-      <option value="Associação CoLAB TRIALS">Associação CoLAB TRIALS</option>
-      <option value="BAYOOMED GmbH">BAYOOMED GmbH</option>
-      <option value="BMS Digital Safety">BMS Digital Safety</option>
-      <option value="Beandgo">Beandgo</option>
-      <option value="CEED | Charite">CEED | Charite</option>
-      <option value="CEED | Charité">CEED | Charité</option>
-      <option value="DataArt">DataArt</option>
-      <option value="Frontiers Health">Frontiers Health</option>
-      <option value="Halo Lab">Halo Lab</option>
-      <option value="Innokas">Innokas</option>
-      <option value="Microsoft for Startups">Microsoft for Startups</option>
-      <option value="NEXT Munich">NEXT Munich</option>
-      <option value="NSB Project">NSB Project</option>
-      <option value="New Enterprise Ventures">New Enterprise Ventures</option>
-      <option value="Nuvantta Strategic Consultants FZE">Nuvantta Strategic Consultants FZE</option>
-      <option value="Plexteq">Plexteq</option>
-      <option value="Punktum">Punktum</option>
-      <option value="R2GConnect">R2GConnect</option>
-      <option value="R2GConnect Channels">R2GConnect Channels</option>
-      <option value="ROOK">ROOK</option>
-      <option value="Research 2 Guidance">Research 2 Guidance</option>
-      <option value="Research2Guidance">Research2Guidance</option>
-      <option value="Thryve Health">Thryve Health</option>
-      <option value="TÜV Informationstechnik GmbH">TÜV Informationstechnik GmbH</option>
-      <option value="Untangling Labs">Untangling Labs</option>
-      <option value="Virtual Nomad">Virtual Nomad</option>
-      <option value="WorldUpstart">WorldUpstart</option>
-      </select>
+      <div class="msel" id="psel-wrap">
+        <button type="button" class="mselbtn" id="psel-btn">All Partners</button>
+        <div class="msel-panel" id="psel-panel">
+          <label class="msel-opt"><input type="checkbox" value="Associação CoLAB TRIALS" data-group="psel"> Associação CoLAB TRIALS</label>
+          <label class="msel-opt"><input type="checkbox" value="BAYOOMED GmbH" data-group="psel"> BAYOOMED GmbH</label>
+          <label class="msel-opt"><input type="checkbox" value="BMS Digital Safety" data-group="psel"> BMS Digital Safety</label>
+          <label class="msel-opt"><input type="checkbox" value="Beandgo" data-group="psel"> Beandgo</label>
+          <label class="msel-opt"><input type="checkbox" value="CEED | Charite" data-group="psel"> CEED | Charite</label>
+          <label class="msel-opt"><input type="checkbox" value="CEED | Charité" data-group="psel"> CEED | Charité</label>
+          <label class="msel-opt"><input type="checkbox" value="DataArt" data-group="psel"> DataArt</label>
+          <label class="msel-opt"><input type="checkbox" value="Frontiers Health" data-group="psel"> Frontiers Health</label>
+          <label class="msel-opt"><input type="checkbox" value="Halo Lab" data-group="psel"> Halo Lab</label>
+          <label class="msel-opt"><input type="checkbox" value="Innokas" data-group="psel"> Innokas</label>
+          <label class="msel-opt"><input type="checkbox" value="Microsoft for Startups" data-group="psel"> Microsoft for Startups</label>
+          <label class="msel-opt"><input type="checkbox" value="NEXT Munich" data-group="psel"> NEXT Munich</label>
+          <label class="msel-opt"><input type="checkbox" value="NSB Project" data-group="psel"> NSB Project</label>
+          <label class="msel-opt"><input type="checkbox" value="New Enterprise Ventures" data-group="psel"> New Enterprise Ventures</label>
+          <label class="msel-opt"><input type="checkbox" value="Nuvantta Strategic Consultants FZE" data-group="psel"> Nuvantta Strategic Consultants FZE</label>
+          <label class="msel-opt"><input type="checkbox" value="Plexteq" data-group="psel"> Plexteq</label>
+          <label class="msel-opt"><input type="checkbox" value="Punktum" data-group="psel"> Punktum</label>
+          <label class="msel-opt"><input type="checkbox" value="R2GConnect" data-group="psel"> R2GConnect</label>
+          <label class="msel-opt"><input type="checkbox" value="R2GConnect Channels" data-group="psel"> R2GConnect Channels</label>
+          <label class="msel-opt"><input type="checkbox" value="ROOK" data-group="psel"> ROOK</label>
+          <label class="msel-opt"><input type="checkbox" value="Research 2 Guidance" data-group="psel"> Research 2 Guidance</label>
+          <label class="msel-opt"><input type="checkbox" value="Research2Guidance" data-group="psel"> Research2Guidance</label>
+          <label class="msel-opt"><input type="checkbox" value="Thryve Health" data-group="psel"> Thryve Health</label>
+          <label class="msel-opt"><input type="checkbox" value="TÜV Informationstechnik GmbH" data-group="psel"> TÜV Informationstechnik GmbH</label>
+          <label class="msel-opt"><input type="checkbox" value="Untangling Labs" data-group="psel"> Untangling Labs</label>
+          <label class="msel-opt"><input type="checkbox" value="Virtual Nomad" data-group="psel"> Virtual Nomad</label>
+          <label class="msel-opt"><input type="checkbox" value="WorldUpstart" data-group="psel"> WorldUpstart</label>
+          <div class="msel-actions">
+            <button type="button" data-clear="psel">Clear</button>
+            <button type="button" data-close="psel">Done</button>
+          </div>
+        </div>
+      </div>
       <div class="fdiv"></div>
       <span class="flabel">Category</span>
-      <select class="fsel" id="csel">
-        <option value="">All Categories</option>
-      <option value="AI agents for healthcare">AI agents for healthcare</option>
-      <option value="AI imaging tools">AI imaging tools</option>
-      <option value="AI productivity tools">AI productivity tools</option>
-      <option value="Augment/Virtual reality">Augment/Virtual reality</option>
-      <option value="Blockchain for medical records &amp; consent">Blockchain for medical records &amp; consent</option>
-      <option value="Business Services">Business Services</option>
-      <option value="Care coordination">Care coordination</option>
-      <option value="Claim and payment management">Claim and payment management</option>
-      <option value="Clinical Study/Research and Content Services">Clinical Study/Research and Content Services</option>
-      <option value="Clinical Trial and Research">Clinical Trial and Research</option>
-      <option value="Clinical trial and research">Clinical trial and research</option>
-      <option value="Consulting Services">Consulting Services</option>
-      <option value="Consulting services">Consulting services</option>
-      <option value="Data Analytics and AI">Data Analytics and AI</option>
-      <option value="Data Integration and Management">Data Integration and Management</option>
-      <option value="Data analytics and AI">Data analytics and AI</option>
-      <option value="Data integration and management">Data integration and management</option>
-      <option value="Development platform">Development platform</option>
-      <option value="Development platform / White label">Development platform / White label</option>
-      <option value="Diagnostics">Diagnostics</option>
-      <option value="Diagnostics &amp; detection">Diagnostics &amp; detection</option>
-      <option value="Digital biomarker">Digital biomarker</option>
-      <option value="Digital therapeutics">Digital therapeutics</option>
-      <option value="Digital therapeutics &amp; Biomarkers">Digital therapeutics &amp; Biomarkers</option>
-      <option value="Digital twins">Digital twins</option>
-      <option value="Disease management">Disease management</option>
-      <option value="Drug companion solution">Drug companion solution</option>
-      <option value="Drug discovery">Drug discovery</option>
-      <option value="EHR/MHR">EHR/MHR</option>
-      <option value="Education and information">Education and information</option>
-      <option value="Glucose monitoring">Glucose monitoring</option>
-      <option value="Healthcare interoperability / FHIR integration">Healthcare interoperability / FHIR integration</option>
-      <option value="Home testing">Home testing</option>
-      <option value="Hospital at home">Hospital at home</option>
-      <option value="Investor &amp; Fundraising and Grant Support">Investor &amp; Fundraising and Grant Support</option>
-      <option value="Longevity &amp; aging tech">Longevity &amp; aging tech</option>
-      <option value="Market Access Support">Market Access Support</option>
-      <option value="Marketplace">Marketplace</option>
-      <option value="Medical device / wearables">Medical device / wearables</option>
-      <option value="Medical device companion solution">Medical device companion solution</option>
-      <option value="Medication adherance">Medication adherance</option>
-      <option value="Patient assistant">Patient assistant</option>
-      <option value="Patient monitoring">Patient monitoring</option>
-      <option value="Personal genetics">Personal genetics</option>
-      <option value="Pharmacy solutions">Pharmacy solutions</option>
-      <option value="Pitch Deck Preparation &amp; Revision">Pitch Deck Preparation &amp; Revision</option>
-      <option value="Population health management">Population health management</option>
-      <option value="Practice management">Practice management</option>
-      <option value="Predictive Analysis">Predictive Analysis</option>
-      <option value="Real world evidence">Real world evidence</option>
-      <option value="Regulatory &amp; Legal Support">Regulatory &amp; Legal Support</option>
-      <option value="Remote monitoring">Remote monitoring</option>
-      <option value="Remote patient monitoring">Remote patient monitoring</option>
-      <option value="Self management">Self management</option>
-      <option value="Sleep tech">Sleep tech</option>
-      <option value="Symptoms tracking">Symptoms tracking</option>
-      <option value="Team Growth">Team Growth</option>
-      <option value="Technical Support and AI">Technical Support and AI</option>
-      <option value="Technical and Product Development Services">Technical and Product Development Services</option>
-      <option value="Tele-pharmacy">Tele-pharmacy</option>
-      <option value="Telehealth / Telemedicine">Telehealth / Telemedicine</option>
-      <option value="Telemedicine">Telemedicine</option>
-      <option value="Voice Tech">Voice Tech</option>
-      <option value="Workforce / shift management">Workforce / shift management</option>
-      </select>
+      <div class="msel" id="csel-wrap">
+        <button type="button" class="mselbtn" id="csel-btn">All Categories</button>
+        <div class="msel-panel" id="csel-panel">
+          <label class="msel-opt"><input type="checkbox" value="AI agents for healthcare" data-group="csel"> AI agents for healthcare</label>
+          <label class="msel-opt"><input type="checkbox" value="AI imaging tools" data-group="csel"> AI imaging tools</label>
+          <label class="msel-opt"><input type="checkbox" value="AI productivity tools" data-group="csel"> AI productivity tools</label>
+          <label class="msel-opt"><input type="checkbox" value="Augment/Virtual reality" data-group="csel"> Augment/Virtual reality</label>
+          <label class="msel-opt"><input type="checkbox" value="Blockchain for medical records &amp; consent" data-group="csel"> Blockchain for medical records &amp; consent</label>
+          <label class="msel-opt"><input type="checkbox" value="Business Services" data-group="csel"> Business Services</label>
+          <label class="msel-opt"><input type="checkbox" value="Care coordination" data-group="csel"> Care coordination</label>
+          <label class="msel-opt"><input type="checkbox" value="Claim and payment management" data-group="csel"> Claim and payment management</label>
+          <label class="msel-opt"><input type="checkbox" value="Clinical Study/Research and Content Services" data-group="csel"> Clinical Study/Research and Content Services</label>
+          <label class="msel-opt"><input type="checkbox" value="Clinical Trial and Research" data-group="csel"> Clinical Trial and Research</label>
+          <label class="msel-opt"><input type="checkbox" value="Clinical trial and research" data-group="csel"> Clinical trial and research</label>
+          <label class="msel-opt"><input type="checkbox" value="Consulting Services" data-group="csel"> Consulting Services</label>
+          <label class="msel-opt"><input type="checkbox" value="Consulting services" data-group="csel"> Consulting services</label>
+          <label class="msel-opt"><input type="checkbox" value="Data Analytics and AI" data-group="csel"> Data Analytics and AI</label>
+          <label class="msel-opt"><input type="checkbox" value="Data Integration and Management" data-group="csel"> Data Integration and Management</label>
+          <label class="msel-opt"><input type="checkbox" value="Data analytics and AI" data-group="csel"> Data analytics and AI</label>
+          <label class="msel-opt"><input type="checkbox" value="Data integration and management" data-group="csel"> Data integration and management</label>
+          <label class="msel-opt"><input type="checkbox" value="Development platform" data-group="csel"> Development platform</label>
+          <label class="msel-opt"><input type="checkbox" value="Development platform / White label" data-group="csel"> Development platform / White label</label>
+          <label class="msel-opt"><input type="checkbox" value="Diagnostics" data-group="csel"> Diagnostics</label>
+          <label class="msel-opt"><input type="checkbox" value="Diagnostics &amp; detection" data-group="csel"> Diagnostics &amp; detection</label>
+          <label class="msel-opt"><input type="checkbox" value="Digital biomarker" data-group="csel"> Digital biomarker</label>
+          <label class="msel-opt"><input type="checkbox" value="Digital therapeutics" data-group="csel"> Digital therapeutics</label>
+          <label class="msel-opt"><input type="checkbox" value="Digital therapeutics &amp; Biomarkers" data-group="csel"> Digital therapeutics &amp; Biomarkers</label>
+          <label class="msel-opt"><input type="checkbox" value="Digital twins" data-group="csel"> Digital twins</label>
+          <label class="msel-opt"><input type="checkbox" value="Disease management" data-group="csel"> Disease management</label>
+          <label class="msel-opt"><input type="checkbox" value="Drug companion solution" data-group="csel"> Drug companion solution</label>
+          <label class="msel-opt"><input type="checkbox" value="Drug discovery" data-group="csel"> Drug discovery</label>
+          <label class="msel-opt"><input type="checkbox" value="EHR/MHR" data-group="csel"> EHR/MHR</label>
+          <label class="msel-opt"><input type="checkbox" value="Education and information" data-group="csel"> Education and information</label>
+          <label class="msel-opt"><input type="checkbox" value="Glucose monitoring" data-group="csel"> Glucose monitoring</label>
+          <label class="msel-opt"><input type="checkbox" value="Healthcare interoperability / FHIR integration" data-group="csel"> Healthcare interoperability / FHIR integration</label>
+          <label class="msel-opt"><input type="checkbox" value="Home testing" data-group="csel"> Home testing</label>
+          <label class="msel-opt"><input type="checkbox" value="Hospital at home" data-group="csel"> Hospital at home</label>
+          <label class="msel-opt"><input type="checkbox" value="Investor &amp; Fundraising and Grant Support" data-group="csel"> Investor &amp; Fundraising and Grant Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Longevity &amp; aging tech" data-group="csel"> Longevity &amp; aging tech</label>
+          <label class="msel-opt"><input type="checkbox" value="Market Access Support" data-group="csel"> Market Access Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Marketplace" data-group="csel"> Marketplace</label>
+          <label class="msel-opt"><input type="checkbox" value="Medical device / wearables" data-group="csel"> Medical device / wearables</label>
+          <label class="msel-opt"><input type="checkbox" value="Medical device companion solution" data-group="csel"> Medical device companion solution</label>
+          <label class="msel-opt"><input type="checkbox" value="Medication adherance" data-group="csel"> Medication adherance</label>
+          <label class="msel-opt"><input type="checkbox" value="Patient assistant" data-group="csel"> Patient assistant</label>
+          <label class="msel-opt"><input type="checkbox" value="Patient monitoring" data-group="csel"> Patient monitoring</label>
+          <label class="msel-opt"><input type="checkbox" value="Personal genetics" data-group="csel"> Personal genetics</label>
+          <label class="msel-opt"><input type="checkbox" value="Pharmacy solutions" data-group="csel"> Pharmacy solutions</label>
+          <label class="msel-opt"><input type="checkbox" value="Pitch Deck Preparation &amp; Revision" data-group="csel"> Pitch Deck Preparation &amp; Revision</label>
+          <label class="msel-opt"><input type="checkbox" value="Population health management" data-group="csel"> Population health management</label>
+          <label class="msel-opt"><input type="checkbox" value="Practice management" data-group="csel"> Practice management</label>
+          <label class="msel-opt"><input type="checkbox" value="Predictive Analysis" data-group="csel"> Predictive Analysis</label>
+          <label class="msel-opt"><input type="checkbox" value="Real world evidence" data-group="csel"> Real world evidence</label>
+          <label class="msel-opt"><input type="checkbox" value="Regulatory &amp; Legal Support" data-group="csel"> Regulatory &amp; Legal Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Remote monitoring" data-group="csel"> Remote monitoring</label>
+          <label class="msel-opt"><input type="checkbox" value="Remote patient monitoring" data-group="csel"> Remote patient monitoring</label>
+          <label class="msel-opt"><input type="checkbox" value="Self management" data-group="csel"> Self management</label>
+          <label class="msel-opt"><input type="checkbox" value="Sleep tech" data-group="csel"> Sleep tech</label>
+          <label class="msel-opt"><input type="checkbox" value="Symptoms tracking" data-group="csel"> Symptoms tracking</label>
+          <label class="msel-opt"><input type="checkbox" value="Team Growth" data-group="csel"> Team Growth</label>
+          <label class="msel-opt"><input type="checkbox" value="Technical Support and AI" data-group="csel"> Technical Support and AI</label>
+          <label class="msel-opt"><input type="checkbox" value="Technical and Product Development Services" data-group="csel"> Technical and Product Development Services</label>
+          <label class="msel-opt"><input type="checkbox" value="Tele-pharmacy" data-group="csel"> Tele-pharmacy</label>
+          <label class="msel-opt"><input type="checkbox" value="Telehealth / Telemedicine" data-group="csel"> Telehealth / Telemedicine</label>
+          <label class="msel-opt"><input type="checkbox" value="Telemedicine" data-group="csel"> Telemedicine</label>
+          <label class="msel-opt"><input type="checkbox" value="Voice Tech" data-group="csel"> Voice Tech</label>
+          <label class="msel-opt"><input type="checkbox" value="Workforce / shift management" data-group="csel"> Workforce / shift management</label>
+          <div class="msel-actions">
+            <button type="button" data-clear="csel">Clear</button>
+            <button type="button" data-close="csel">Done</button>
+          </div>
+        </div>
+      </div>
       <div class="fdiv"></div>
       <span class="flabel">Subcategory</span>
-      <select class="fsel" id="ssel">
-        <option value="">All Subcategories</option>
-      <option value="AI Clinical Data Analysis &amp; Predictive Analytics">AI Clinical Data Analysis &amp; Predictive Analytics</option>
-      <option value="Acceleration &amp; Incubation">Acceleration &amp; Incubation</option>
-      <option value="Acceleration/Incubation">Acceleration/Incubation</option>
-      <option value="Access to AI Platforms &amp; Tools">Access to AI Platforms &amp; Tools</option>
-      <option value="Access to HCPs and Coaches &amp; Patients">Access to HCPs and Coaches &amp; Patients</option>
-      <option value="Access to Patient Data">Access to Patient Data</option>
-      <option value="Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways">Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways</option>
-      <option value="Assistance With Notified Body Submissions or Pre-Market Approvals">Assistance With Notified Body Submissions or Pre-Market Approvals</option>
-      <option value="Billing &amp; Claims Management">Billing &amp; Claims Management</option>
-      <option value="Biomarker/API services">Biomarker/API services</option>
-      <option value="Business Admin">Business Admin</option>
-      <option value="Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA">Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA</option>
-      <option value="Clinical Study Support">Clinical Study Support</option>
-      <option value="Clinical Usability Testing">Clinical Usability Testing</option>
-      <option value="Cloud Infrastructure &amp; Cybersecurity Setup">Cloud Infrastructure &amp; Cybersecurity Setup</option>
-      <option value="Co-development">Co-development</option>
-      <option value="Coaching">Coaching</option>
-      <option value="Commercial partnership">Commercial partnership</option>
-      <option value="Conference participation">Conference participation</option>
-      <option value="Consulting Services">Consulting Services</option>
-      <option value="Distribution Support">Distribution Support</option>
-      <option value="Embedded Software Development for Medical Devices">Embedded Software Development for Medical Devices</option>
-      <option value="Fractional Hires &amp; Interim Manager Search">Fractional Hires &amp; Interim Manager Search</option>
-      <option value="Fundraising Strategy">Fundraising Strategy</option>
-      <option value="GDPR/HIPAA Compliance Audits">GDPR/HIPAA Compliance Audits</option>
-      <option value="General Business and Consulting Services">General Business and Consulting Services</option>
-      <option value="General Legal &amp; Regulatory Advice">General Legal &amp; Regulatory Advice</option>
-      <option value="Go-To-Market Support">Go-To-Market Support</option>
-      <option value="Health IT Infrastructure Services">Health IT Infrastructure Services</option>
-      <option value="Integration With Electronic Health Records (EHR/EMR) &amp; APIs">Integration With Electronic Health Records (EHR/EMR) &amp; APIs</option>
-      <option value="Investor Due Diligence Support">Investor Due Diligence Support</option>
-      <option value="Investor Search &amp; Fundraising">Investor Search &amp; Fundraising</option>
-      <option value="Joined offer creation">Joined offer creation</option>
-      <option value="Localization &amp; Translation">Localization &amp; Translation</option>
-      <option value="Machine Learning Model Development &amp; Validation">Machine Learning Model Development &amp; Validation</option>
-      <option value="Market Access Support">Market Access Support</option>
-      <option value="Market Research &amp; Competitive Analysis">Market Research &amp; Competitive Analysis</option>
-      <option value="Marketing and Branding &amp; Content Management">Marketing and Branding &amp; Content Management</option>
-      <option value="Medical App Concept Creation &amp; Validation">Medical App Concept Creation &amp; Validation</option>
-      <option value="Medical Apps &amp; Web Platforms and Backend System Development">Medical Apps &amp; Web Platforms and Backend System Development</option>
-      <option value="Other">Other</option>
-      <option value="Pilot">Pilot</option>
-      <option value="Pitch Deck Preparation &amp; Revision">Pitch Deck Preparation &amp; Revision</option>
-      <option value="Pitch competition">Pitch competition</option>
-      <option value="Pricing Strategy &amp; Negotiation Support (E.G., Diga, FDA, Payers)">Pricing Strategy &amp; Negotiation Support (E.G., Diga, FDA, Payers)</option>
-      <option value="Product &amp; Market Fit Analysis">Product &amp; Market Fit Analysis</option>
-      <option value="Product Liability &amp; Malpractice Risk Advisory">Product Liability &amp; Malpractice Risk Advisory</option>
-      <option value="Product Validation &amp; Quality Assurance">Product Validation &amp; Quality Assurance</option>
-      <option value="Recruitment Support">Recruitment Support</option>
-      <option value="Training">Training</option>
-      <option value="Usability Engineering">Usability Engineering</option>
-      <option value="Verification &amp; Validation Testing">Verification &amp; Validation Testing</option>
-      </select>
+      <div class="msel" id="ssel-wrap">
+        <button type="button" class="mselbtn" id="ssel-btn">All Subcategories</button>
+        <div class="msel-panel" id="ssel-panel">
+          <label class="msel-opt"><input type="checkbox" value="AI Clinical Data Analysis &amp; Predictive Analytics" data-group="ssel"> AI Clinical Data Analysis &amp; Predictive Analytics</label>
+          <label class="msel-opt"><input type="checkbox" value="Acceleration &amp; Incubation" data-group="ssel"> Acceleration &amp; Incubation</label>
+          <label class="msel-opt"><input type="checkbox" value="Acceleration/Incubation" data-group="ssel"> Acceleration/Incubation</label>
+          <label class="msel-opt"><input type="checkbox" value="Access to AI Platforms &amp; Tools" data-group="ssel"> Access to AI Platforms &amp; Tools</label>
+          <label class="msel-opt"><input type="checkbox" value="Access to HCPs and Coaches &amp; Patients" data-group="ssel"> Access to HCPs and Coaches &amp; Patients</label>
+          <label class="msel-opt"><input type="checkbox" value="Access to Patient Data" data-group="ssel"> Access to Patient Data</label>
+          <label class="msel-opt"><input type="checkbox" value="Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways" data-group="ssel"> Application Support on e.g., DIGA, NICE, PECAN and other Reimbursement Pathways</label>
+          <label class="msel-opt"><input type="checkbox" value="Assistance With Notified Body Submissions or Pre-Market Approvals" data-group="ssel"> Assistance With Notified Body Submissions or Pre-Market Approvals</label>
+          <label class="msel-opt"><input type="checkbox" value="Billing &amp; Claims Management" data-group="ssel"> Billing &amp; Claims Management</label>
+          <label class="msel-opt"><input type="checkbox" value="Biomarker/API services" data-group="ssel"> Biomarker/API services</label>
+          <label class="msel-opt"><input type="checkbox" value="Business Admin" data-group="ssel"> Business Admin</label>
+          <label class="msel-opt"><input type="checkbox" value="Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA" data-group="ssel"> Certification Support on e.g., EU MDR/IVDR, FDA 21 CFR Part 11, AI Act, HIPAA</label>
+          <label class="msel-opt"><input type="checkbox" value="Clinical Study Support" data-group="ssel"> Clinical Study Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Clinical Usability Testing" data-group="ssel"> Clinical Usability Testing</label>
+          <label class="msel-opt"><input type="checkbox" value="Cloud Infrastructure &amp; Cybersecurity Setup" data-group="ssel"> Cloud Infrastructure &amp; Cybersecurity Setup</label>
+          <label class="msel-opt"><input type="checkbox" value="Co-development" data-group="ssel"> Co-development</label>
+          <label class="msel-opt"><input type="checkbox" value="Coaching" data-group="ssel"> Coaching</label>
+          <label class="msel-opt"><input type="checkbox" value="Commercial partnership" data-group="ssel"> Commercial partnership</label>
+          <label class="msel-opt"><input type="checkbox" value="Conference participation" data-group="ssel"> Conference participation</label>
+          <label class="msel-opt"><input type="checkbox" value="Consulting Services" data-group="ssel"> Consulting Services</label>
+          <label class="msel-opt"><input type="checkbox" value="Distribution Support" data-group="ssel"> Distribution Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Embedded Software Development for Medical Devices" data-group="ssel"> Embedded Software Development for Medical Devices</label>
+          <label class="msel-opt"><input type="checkbox" value="Fractional Hires &amp; Interim Manager Search" data-group="ssel"> Fractional Hires &amp; Interim Manager Search</label>
+          <label class="msel-opt"><input type="checkbox" value="Fundraising Strategy" data-group="ssel"> Fundraising Strategy</label>
+          <label class="msel-opt"><input type="checkbox" value="GDPR/HIPAA Compliance Audits" data-group="ssel"> GDPR/HIPAA Compliance Audits</label>
+          <label class="msel-opt"><input type="checkbox" value="General Business and Consulting Services" data-group="ssel"> General Business and Consulting Services</label>
+          <label class="msel-opt"><input type="checkbox" value="General Legal &amp; Regulatory Advice" data-group="ssel"> General Legal &amp; Regulatory Advice</label>
+          <label class="msel-opt"><input type="checkbox" value="Go-To-Market Support" data-group="ssel"> Go-To-Market Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Health IT Infrastructure Services" data-group="ssel"> Health IT Infrastructure Services</label>
+          <label class="msel-opt"><input type="checkbox" value="Integration With Electronic Health Records (EHR/EMR) &amp; APIs" data-group="ssel"> Integration With Electronic Health Records (EHR/EMR) &amp; APIs</label>
+          <label class="msel-opt"><input type="checkbox" value="Investor Due Diligence Support" data-group="ssel"> Investor Due Diligence Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Investor Search &amp; Fundraising" data-group="ssel"> Investor Search &amp; Fundraising</label>
+          <label class="msel-opt"><input type="checkbox" value="Joined offer creation" data-group="ssel"> Joined offer creation</label>
+          <label class="msel-opt"><input type="checkbox" value="Localization &amp; Translation" data-group="ssel"> Localization &amp; Translation</label>
+          <label class="msel-opt"><input type="checkbox" value="Machine Learning Model Development &amp; Validation" data-group="ssel"> Machine Learning Model Development &amp; Validation</label>
+          <label class="msel-opt"><input type="checkbox" value="Market Access Support" data-group="ssel"> Market Access Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Market Research &amp; Competitive Analysis" data-group="ssel"> Market Research &amp; Competitive Analysis</label>
+          <label class="msel-opt"><input type="checkbox" value="Marketing and Branding &amp; Content Management" data-group="ssel"> Marketing and Branding &amp; Content Management</label>
+          <label class="msel-opt"><input type="checkbox" value="Medical App Concept Creation &amp; Validation" data-group="ssel"> Medical App Concept Creation &amp; Validation</label>
+          <label class="msel-opt"><input type="checkbox" value="Medical Apps &amp; Web Platforms and Backend System Development" data-group="ssel"> Medical Apps &amp; Web Platforms and Backend System Development</label>
+          <label class="msel-opt"><input type="checkbox" value="Other" data-group="ssel"> Other</label>
+          <label class="msel-opt"><input type="checkbox" value="Pilot" data-group="ssel"> Pilot</label>
+          <label class="msel-opt"><input type="checkbox" value="Pitch Deck Preparation &amp; Revision" data-group="ssel"> Pitch Deck Preparation &amp; Revision</label>
+          <label class="msel-opt"><input type="checkbox" value="Pitch competition" data-group="ssel"> Pitch competition</label>
+          <label class="msel-opt"><input type="checkbox" value="Pricing Strategy &amp; Negotiation Support (E.G., Diga, FDA, Payers)" data-group="ssel"> Pricing Strategy &amp; Negotiation Support (E.G., Diga, FDA, Payers)</label>
+          <label class="msel-opt"><input type="checkbox" value="Product &amp; Market Fit Analysis" data-group="ssel"> Product &amp; Market Fit Analysis</label>
+          <label class="msel-opt"><input type="checkbox" value="Product Liability &amp; Malpractice Risk Advisory" data-group="ssel"> Product Liability &amp; Malpractice Risk Advisory</label>
+          <label class="msel-opt"><input type="checkbox" value="Product Validation &amp; Quality Assurance" data-group="ssel"> Product Validation &amp; Quality Assurance</label>
+          <label class="msel-opt"><input type="checkbox" value="Recruitment Support" data-group="ssel"> Recruitment Support</label>
+          <label class="msel-opt"><input type="checkbox" value="Training" data-group="ssel"> Training</label>
+          <label class="msel-opt"><input type="checkbox" value="Usability Engineering" data-group="ssel"> Usability Engineering</label>
+          <label class="msel-opt"><input type="checkbox" value="Verification &amp; Validation Testing" data-group="ssel"> Verification &amp; Validation Testing</label>
+          <div class="msel-actions">
+            <button type="button" data-clear="ssel">Clear</button>
+            <button type="button" data-close="ssel">Done</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="frow">
       <button class="fbtn" id="copylink" style="border-color:#5a5fcc;color:#5a5fcc;font-weight:600">🔗 Copy Link to This View</button>
@@ -330,73 +363,14 @@ var opps=[{"type": "Growth Project", "is_partnership": false, "title": "AI Risk 
     }
   });
 })();
-var aF='all',aS='dl-asc',aP='',aC='',aSub='',aQ='';
-
-// ---- URL <-> filter state sync ----
-function updateURL(){
-  var params=new URLSearchParams();
-  if(aF&&aF!=='all')params.set('type',aF);
-  if(aS&&aS!=='dl-asc')params.set('sort',aS);
-  if(aP)params.set('partner',aP);
-  if(aC)params.set('category',aC);
-  if(aSub)params.set('sub',aSub);
-  if(aQ)params.set('q',aQ);
-  var qs=params.toString();
-  var newUrl=window.location.pathname+(qs?'?'+qs:'');
-  window.history.replaceState(null,'',newUrl);
-}
-
-function loadFromURL(){
-  var params=new URLSearchParams(window.location.search);
-  if(params.has('type')){
-    aF=params.get('type');
-    document.querySelectorAll('.fbtn').forEach(function(x){
-      x.classList.toggle('active',x.getAttribute('data-f')===aF);
-    });
-  }
-  if(params.has('sort')){
-    aS=params.get('sort');
-    var sortEl=document.getElementById('sort');
-    sortEl.value=aS;
-  }
-  if(params.has('partner')){
-    aP=params.get('partner');
-    var pEl=document.getElementById('psel');
-    pEl.value=aP;
-    pEl.classList.toggle('av',!!aP);
-  }
-  if(params.has('category')){
-    aC=params.get('category');
-    var cEl=document.getElementById('csel');
-    cEl.value=aC;
-    cEl.classList.toggle('av',!!aC);
-  }
-  if(params.has('sub')){
-    aSub=params.get('sub');
-    var sEl=document.getElementById('ssel');
-    sEl.value=aSub;
-    sEl.classList.toggle('av',!!aSub);
-  }
-  if(params.has('q')){
-    aQ=params.get('q');
-    document.getElementById('sinp').value=aQ;
-  }
-  // if any filter came from the URL, expand the filter panel on mobile so it's visible
-  if([...params.keys()].length && window.innerWidth<=640){
-    fb.classList.add('open');
-    chev.style.transform='rotate(180deg)';
-    document.getElementById('ftoggle').setAttribute('aria-expanded','true');
-  }
-}
-
-var fb=document.getElementById('fb');
-var chev=document.getElementById('chev');
-document.getElementById('ftoggle').addEventListener('click',function(){
-  if(window.innerWidth>640)return;
-  var open=fb.classList.toggle('open');
-  chev.style.transform=open?'rotate(180deg)':'';
-  this.setAttribute('aria-expanded',open);
-});
+// ---- Filter state (multi-select) ----
+var aF=new Set();      // selected types (empty = all)
+var aUrgent=false;     // closing-soon toggle
+var aP=new Set();      // selected partners
+var aC=new Set();      // selected categories
+var aSub=new Set();    // selected subcategories
+var aS='dl-asc';
+var aQ='';
 
 function getSorted(arr){
   var a=arr.slice();
@@ -413,11 +387,11 @@ function getSorted(arr){
 
 function getFiltered(){
   var r=opps.filter(function(o){return o.days_left>=0;});
-  if(aF==='urgent')r=r.filter(function(o){return o.days_left<=7;});
-  else if(aF!=='all')r=r.filter(function(o){return o.type===aF.slice(2);});
-  if(aP)r=r.filter(function(o){return o.partner===aP;});
-  if(aC)r=r.filter(function(o){return o.cats.indexOf(aC)>=0;});
-  if(aSub)r=r.filter(function(o){return o.subs.indexOf(aSub)>=0;});
+  if(aUrgent)r=r.filter(function(o){return o.days_left<=7;});
+  if(aF.size)r=r.filter(function(o){return aF.has(o.type);});
+  if(aP.size)r=r.filter(function(o){return aP.has(o.partner);});
+  if(aC.size)r=r.filter(function(o){return o.cats.some(function(c){return aC.has(c);});});
+  if(aSub.size)r=r.filter(function(o){return o.subs.some(function(s){return aSub.has(s);});});
   if(aQ){
     var q=aQ.toLowerCase();
     r=r.filter(function(o){
@@ -491,42 +465,197 @@ function render(){
   });
 }
 
-document.querySelectorAll('.fbtn').forEach(function(b){
+// ---- Multi-select dropdown widget (Partner / Category / Subcategory) ----
+var MSEL_LABELS={psel:'All Partners',csel:'All Categories',ssel:'All Subcategories'};
+var MSEL_NOUN_PLURAL={psel:'Partners',csel:'Categories',ssel:'Subcategories'};
+var MSEL_SETS={psel:aP,csel:aC,ssel:aSub};
+
+function mselLabel(id){
+  var set=MSEL_SETS[id];
+  var btn=document.getElementById(id+'-btn');
+  if(set.size===0){
+    btn.textContent=MSEL_LABELS[id];
+    btn.classList.remove('av');
+  } else if(set.size===1){
+    btn.textContent=Array.from(set)[0];
+    btn.classList.add('av');
+  } else {
+    btn.textContent=set.size+' '+MSEL_NOUN_PLURAL[id]+' selected';
+    btn.classList.add('av');
+  }
+}
+
+function initMsel(id){
+  var btn=document.getElementById(id+'-btn');
+  var panel=document.getElementById(id+'-panel');
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    var wasOpen=panel.classList.contains('open');
+    document.querySelectorAll('.msel-panel.open').forEach(function(p){p.classList.remove('open');});
+    if(!wasOpen)panel.classList.add('open');
+  });
+  panel.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      var set=MSEL_SETS[id];
+      if(cb.checked)set.add(cb.value);else set.delete(cb.value);
+      mselLabel(id);
+      updateURL();
+      render();
+    });
+  });
+  panel.querySelector('[data-clear]').addEventListener('click',function(e){
+    e.stopPropagation();
+    MSEL_SETS[id].clear();
+    panel.querySelectorAll('input[type=checkbox]').forEach(function(cb){cb.checked=false;});
+    mselLabel(id);
+    updateURL();
+    render();
+  });
+  panel.querySelector('[data-close]').addEventListener('click',function(e){
+    e.stopPropagation();
+    panel.classList.remove('open');
+  });
+}
+['psel','csel','ssel'].forEach(initMsel);
+document.addEventListener('click',function(){
+  document.querySelectorAll('.msel-panel.open').forEach(function(p){p.classList.remove('open');});
+});
+
+function setMselFromValues(id,values){
+  var set=MSEL_SETS[id];
+  set.clear();
+  values.forEach(function(v){set.add(v);});
+  var panel=document.getElementById(id+'-panel');
+  panel.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+    cb.checked=set.has(cb.value);
+  });
+  mselLabel(id);
+}
+
+// ---- URL <-> filter state sync ----
+function updateURL(){
+  var params=new URLSearchParams();
+  if(aF.size)params.set('type',Array.from(aF).join(','));
+  if(aUrgent)params.set('urgent','1');
+  if(aS&&aS!=='dl-asc')params.set('sort',aS);
+  if(aP.size)params.set('partner',Array.from(aP).join(','));
+  if(aC.size)params.set('category',Array.from(aC).join(','));
+  if(aSub.size)params.set('sub',Array.from(aSub).join(','));
+  if(aQ)params.set('q',aQ);
+  var qs=params.toString();
+  var newUrl=window.location.pathname+(qs?'?'+qs:'');
+  try{
+    window.history.replaceState(null,'',newUrl);
+  }catch(e){
+    // Some sandboxed/preview contexts (e.g. srcdoc iframes) don't allow
+    // rewriting the URL. Filters still work; only the shareable-link
+    // address bar update is skipped in that context. Once this file is
+    // hosted on a real URL (GitHub Pages, Netlify, etc.) this succeeds normally.
+  }
+}
+
+function loadFromURL(){
+  var params=new URLSearchParams(window.location.search);
+  var hasAny=false;
+  if(params.has('type')){
+    hasAny=true;
+    params.get('type').split(',').filter(Boolean).forEach(function(t){aF.add(t);});
+    document.querySelectorAll('.fbtn[data-f]').forEach(function(x){
+      var f=x.getAttribute('data-f');
+      if(f!=='all'&&f!=='urgent')x.classList.toggle('active',aF.has(f.slice(2)));
+    });
+    if(aF.size)document.querySelector('.fbtn[data-f="all"]').classList.remove('active');
+  }
+  if(params.has('urgent')){
+    hasAny=true;
+    aUrgent=true;
+    document.querySelector('.fbtn[data-f="urgent"]').classList.add('active');
+  }
+  if(params.has('sort')){
+    aS=params.get('sort');
+    document.getElementById('sort').value=aS;
+  }
+  if(params.has('partner')){
+    hasAny=true;
+    setMselFromValues('psel',params.get('partner').split(',').filter(Boolean));
+  }
+  if(params.has('category')){
+    hasAny=true;
+    setMselFromValues('csel',params.get('category').split(',').filter(Boolean));
+  }
+  if(params.has('sub')){
+    hasAny=true;
+    setMselFromValues('ssel',params.get('sub').split(',').filter(Boolean));
+  }
+  if(params.has('q')){
+    hasAny=true;
+    aQ=params.get('q');
+    document.getElementById('sinp').value=aQ;
+  }
+  if(hasAny && window.innerWidth<=640){
+    fb.classList.add('open');
+    chev.style.transform='rotate(180deg)';
+    document.getElementById('ftoggle').setAttribute('aria-expanded','true');
+  }
+}
+
+var fb=document.getElementById('fb');
+var chev=document.getElementById('chev');
+document.getElementById('ftoggle').addEventListener('click',function(){
+  if(window.innerWidth>640)return;
+  var open=fb.classList.toggle('open');
+  chev.style.transform=open?'rotate(180deg)':'';
+  this.setAttribute('aria-expanded',open);
+});
+
+document.querySelectorAll('.fbtn[data-f]').forEach(function(b){
   b.addEventListener('click',function(){
-    document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active');});
-    this.classList.add('active');
-    aF=this.getAttribute('data-f');
+    var f=this.getAttribute('data-f');
+    if(f==='all'){
+      aF.clear();
+      document.querySelectorAll('.fbtn[data-f]').forEach(function(x){
+        if(x.getAttribute('data-f')!=='urgent')x.classList.remove('active');
+      });
+      this.classList.add('active');
+    } else if(f==='urgent'){
+      aUrgent=!aUrgent;
+      this.classList.toggle('active',aUrgent);
+    } else {
+      var typeName=f.slice(2); // strip "t:" prefix
+      if(aF.has(typeName)){aF.delete(typeName);this.classList.remove('active');}
+      else{aF.add(typeName);this.classList.add('active');}
+      document.querySelector('.fbtn[data-f="all"]').classList.toggle('active',aF.size===0);
+    }
     updateURL();
     render();
   });
 });
 
-function bindSel(id,fn){
-  document.getElementById(id).addEventListener('change',function(){
-    fn(this.value);
-    this.classList.toggle('av',!!this.value);
-    updateURL();
-    render();
-  });
-}
-bindSel('sort',function(v){aS=v;});
-bindSel('psel',function(v){aP=v;});
-bindSel('csel',function(v){aC=v;});
-bindSel('ssel',function(v){aSub=v;});
+document.getElementById('sort').addEventListener('change',function(){
+  aS=this.value;
+  updateURL();
+  render();
+});
 
 var sinpTimer;
 document.getElementById('sinp').addEventListener('input',function(){
   aQ=this.value.trim();
   clearTimeout(sinpTimer);
-  sinpTimer=setTimeout(updateURL,400); // debounce URL updates while typing
+  sinpTimer=setTimeout(updateURL,400);
   render();
 });
 
 document.getElementById('copylink').addEventListener('click',function(){
+  var btn=document.getElementById('copylink');
+  if(window.location.protocol==='about:'){
+    var orig=btn.textContent;
+    btn.textContent='Host this page first to get a link';
+    setTimeout(function(){btn.textContent=orig;},2200);
+    return;
+  }
   updateURL();
   var url=window.location.href;
   var done=function(){
-    var btn=document.getElementById('copylink');
     var orig=btn.textContent;
     btn.textContent='Copied!';
     setTimeout(function(){btn.textContent=orig;},1600);
